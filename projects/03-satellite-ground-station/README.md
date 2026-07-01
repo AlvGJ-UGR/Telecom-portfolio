@@ -25,7 +25,14 @@ flowchart LR
 ## Subsistemas
 
 ### 1. Antena QFH (recepción)
-*(pendiente de diseño — ver checklist más abajo)*
+
+Antena Quadrifilar Helicoidal para 137MHz — polarización circular, patrón hemisférico sin nulos, la topología de referencia de la comunidad para recepción de satélites meteorológicos en órbita baja.
+
+- 📐 [`antenna/qfh_design.md`](antenna/qfh_design.md) — frecuencia de diseño, justificación de topología, metodología de cálculo (calculadora de referencia de la comunidad + parámetros exactos a introducir), alimentación y balun
+- 🖨️ [`antenna/qfh_support.scad`](antenna/qfh_support.scad) — soporte paramétrico de impresión 3D (valores de ejemplo, a sustituir por la salida real de la calculadora antes de imprimir)
+
+<img src="antenna/qfh_support_preview.png" width="500" alt="Render del soporte QFH (valores de ejemplo)">
+
 
 ### 2. Rotor de seguimiento automático Az/El
 
@@ -58,7 +65,9 @@ El puente `rotctld_bridge.py` incluye un **modo `--demo`** verificado end-to-end
 
 ### Checklist pendiente
 
-- [ ] Diseñar e imprimir la antena QFH/turnstile para 137 MHz
+- [x] Diseñar la antena QFH/turnstile para 137 MHz (metodología, parámetros de calculadora y soporte 3D paramétrico listos)
+- [ ] Ejecutar la calculadora de John Coppens con el conductor real elegido y el radio de doblez de la pieza impresa, obtener H1/Dc1/H2/Dc2 finales
+- [ ] Imprimir el soporte con los valores finales e imprimir/doblar los 4 conductores helicoidales
 - [ ] Configurar RTL-SDR + software de recepción (SDR++/gqrx)
 - [ ] Decodificar señal APT/LRPT con `noaa-apt` o `SatDump`
 - [ ] Montar el rotor físico e integrar con `rotor_firmware.ino`
