@@ -32,8 +32,8 @@ The goal isn't just to "make it work" — each project follows the full engineer
 |---|---|---|---|---|
 | 01 | [SDR Fundamentals: Spectrum + ADS-B](projects/01-sdr-fundamentals/) | 🟡 In progress | Live spectrum analyzer and aircraft tracking via ADS-B (1090 MHz) with a homemade ground-plane antenna | SDR, digital modulation, RF basics |
 | 02 | [Antenna Design & VNA Measurement](projects/02-antenna-design-vna/) | 🔵 Planned | Design, 3D printing, and real characterization (S11, VSWR, bandwidth) of Yagi/biquad/helical antennas | Antenna design, RF measurement, simulation vs. reality |
-| 03 | [Weather Satellite Ground Station](projects/03-satellite-ground-station/) | 🔵 Planned | Reception and decoding of NOAA/Meteor-M2 satellite images with a 3D-printed QFH antenna | Satellite links, doppler tracking, signal processing |
-| 04 | [LoRa IoT Mesh Network](projects/04-lora-mesh-network/) | 🔵 Planned | Sensor network deployed with ESP32+LoRa nodes, MQTT gateway, and real-time dashboard | LPWAN communications, embedded systems, IoT networking |
+| 03 | [Weather Satellite Ground Station](projects/03-satellite-ground-station/) | 🟡 In progress | Reception and decoding of NOAA/Meteor-M2 satellite images with a 3D-printed QFH antenna and a motorized Az/El tracking rotor | Satellite links, doppler tracking, signal processing, motor kinematics |
+| 04 | [LoRa/Meshtastic Alpine Network](projects/04-alpine-mesh-tracking/) | 🔵 Planned | Off-grid messaging and GPS tracking for hiking, with a directional gateway node for occasional internet bridging | LPWAN, hardware hacking, real-terrain RF propagation |
 
 **Status legend:** 🔵 Planned · 🟡 In progress · 🟢 Completed
 

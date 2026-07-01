@@ -24,9 +24,9 @@ Diseño de 2-3 antenas (Yagi, biquad, helicoidal) para banda ISM (868/915 MHz o 
 
 Antena QFH o turnstile impresa en 3D para recepción de satélites NOAA/Meteor-M2 (137 MHz). Decodificación de imágenes con noaa-apt/SatDump. Automatización de captura con predicción de pases (Gpredict/predict).
 
-## Fase 4 — Proyecto insignia: red mesh LoRa IoT (semanas 8-12)
+## Fase 4 — Proyecto insignia: red de comunicación y GPS para alta montaña (semanas 8-12)
 
-Despliegue de 4-6 nodos ESP32+LoRa con sensores ambientales en distintos puntos de la ciudad/campus. Carcasas impresas resistentes a intemperie. Gateway MQTT centralizando datos, dashboard en tiempo real (Grafana/Node-RED). Medición de alcance real vs. link budget teórico.
+Pivote respecto al plan original de red IoT genérica: en vez de sensores ambientales, el proyecto insignia es una red Meshtastic (LoRa) orientada a senderismo/alta montaña — mensajería sin cobertura móvil, track GPS fiable, y bridging ocasional hacia internet vía nodo gateway con antena direccional. Se prioriza por ser un caso de uso real del autor, no sustituible por un móvil o app existente. Ver [`projects/04-alpine-mesh-tracking/README.md`](../projects/04-alpine-mesh-tracking/README.md) para el diseño completo, BOM y asunciones activas.
 
 ## Extras opcionales
 

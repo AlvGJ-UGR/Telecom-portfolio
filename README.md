@@ -32,8 +32,8 @@ El objetivo no es solo "hacer que funcione", sino aplicar el proceso de ingenier
 |---|---|---|---|---|
 | 01 | [Fundamentos SDR: Espectro + ADS-B](projects/01-sdr-fundamentals/) | 🟡 En progreso | Analizador de espectro en vivo y rastreo de aviones vía ADS-B (1090 MHz) con antena ground-plane casera | SDR, modulación digital, RF básica |
 | 02 | [Diseño y medición de antenas con VNA](projects/02-antenna-design-vna/) | 🔵 Planeado | Diseño, impresión 3D y caracterización real (S11, ROE, ancho de banda) de antenas Yagi/biquad/helicoidal | Diseño de antenas, medición RF, simulación vs. realidad |
-| 03 | [Estación terrena de satélites meteorológicos](projects/03-satellite-ground-station/) | 🔵 Planeado | Recepción y decodificación de imágenes de satélites NOAA/Meteor-M2 con antena QFH impresa en 3D | Enlaces satelitales, doppler tracking, procesamiento de señal |
-| 04 | [Red mesh IoT con LoRa](projects/04-lora-mesh-network/) | 🔵 Planeado | Red de sensores desplegada con nodos ESP32+LoRa, gateway MQTT y dashboard en tiempo real | Comunicaciones LPWAN, sistemas embebidos, redes IoT |
+| 03 | [Estación terrena de satélites meteorológicos](projects/03-satellite-ground-station/) | 🟡 En progreso | Recepción y decodificación de imágenes de satélites NOAA/Meteor-M2 con antena QFH impresa en 3D y rotor de seguimiento Az/El motorizado | Enlaces satelitales, doppler tracking, procesamiento de señal, cinemática de motores |
+| 04 | [Red LoRa/Meshtastic para alta montaña](projects/04-alpine-mesh-tracking/) | 🔵 Planeado | Mensajería y track GPS off-grid para senderismo, con nodo gateway direccional para bridging ocasional hacia internet | LPWAN, hacking de hardware, propagación RF en terreno real |
 
 **Leyenda de estado:** 🔵 Planeado · 🟡 En progreso · 🟢 Completado
 
