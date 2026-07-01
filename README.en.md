@@ -64,9 +64,9 @@ Full details, budget, and technical rationale for each phase in [`docs/roadmap.m
 
 ## 📫 Contact
 
-- LinkedIn: [your profile here]
-- Email: [your-email@example.com]
-- CV: [link to your CV]
+- LinkedIn: 
+- Email: alvarogj1@correo.ugr.es
+- CV: 
 
 ---
 
