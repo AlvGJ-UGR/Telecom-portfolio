@@ -30,7 +30,7 @@ El objetivo no es solo "hacer que funcione", sino aplicar el proceso de ingenier
 
 | # | Proyecto | Estado | Descripción breve | Habilidades clave |
 |---|---|---|---|---|
-| 01 | [Fundamentos SDR: Espectro + ADS-B](projects/01-sdr-fundamentals/) | 🔵 Planeado | Analizador de espectro en vivo y rastreo de aviones vía ADS-B (1090 MHz) con antena colineal casera | SDR, modulación digital, RF básica |
+| 01 | [Fundamentos SDR: Espectro + ADS-B](projects/01-sdr-fundamentals/) | 🟡 En progreso | Analizador de espectro en vivo y rastreo de aviones vía ADS-B (1090 MHz) con antena ground-plane casera | SDR, modulación digital, RF básica |
 | 02 | [Diseño y medición de antenas con VNA](projects/02-antenna-design-vna/) | 🔵 Planeado | Diseño, impresión 3D y caracterización real (S11, ROE, ancho de banda) de antenas Yagi/biquad/helicoidal | Diseño de antenas, medición RF, simulación vs. realidad |
 | 03 | [Estación terrena de satélites meteorológicos](projects/03-satellite-ground-station/) | 🔵 Planeado | Recepción y decodificación de imágenes de satélites NOAA/Meteor-M2 con antena QFH impresa en 3D | Enlaces satelitales, doppler tracking, procesamiento de señal |
 | 04 | [Red mesh IoT con LoRa](projects/04-lora-mesh-network/) | 🔵 Planeado | Red de sensores desplegada con nodos ESP32+LoRa, gateway MQTT y dashboard en tiempo real | Comunicaciones LPWAN, sistemas embebidos, redes IoT |
@@ -64,9 +64,9 @@ Detalle completo, presupuesto y justificación técnica de cada fase en [`docs/r
 
 ## 📫 Contacto
 
-- LinkedIn: 
-- Email: alvarogj1@correo.ugr.es
-- CV: 
+- LinkedIn: [tu perfil aquí]
+- Email: [tu-email@ejemplo.com]
+- CV: [enlace a tu CV]
 
 ---
 
