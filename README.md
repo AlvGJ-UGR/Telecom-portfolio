@@ -22,7 +22,7 @@ El objetivo no es solo "hacer que funcione", sino aplicar el proceso de ingenier
 | Fabricación | Impresora 3D (PLA/PETG), estación de soldadura |
 | Software | GNU Radio, SDR++/SDR#, KiCad, 4nec2, Python (NumPy/SciPy/Matplotlib) |
 | Embebido | ESP32, módulos LoRa SX1276/78 |
-| Protocolos estudiados | ADS-B, LoRaWAN, APT/LRPT (satélites meteorológicos), MQTT |
+| Protocolos estudiados | ADS-B, LoRa (Meshtastic), APT/LRPT (satélites meteorológicos), MQTT, rotctld/Hamlib |
 
 ---
 
@@ -41,12 +41,18 @@ El objetivo no es solo "hacer que funcione", sino aplicar el proceso de ingenier
 
 ---
 
+## 🔗 Proyecto relacionado (repositorio aparte)
+
+- **[wifi-csi-presence-sensing](https://github.com/AlvGJ-UGR/wifi-csi-presence-sensing)** — Sensado de presencia mediante WiFi Channel State Information (CSI) sobre ESP32, sin cámaras ni sensores dedicados. Repositorio independiente por tratarse de una línea de trabajo distinta (procesamiento de señal / sensado RF, no comunicaciones); ver su propio README para la diferenciación frente a proyectos similares ya existentes en la comunidad.
+
+---
+
 ## 🗺️ Roadmap
 
-- [ ] **Fase 1** — Fundamentos SDR (espectro + ADS-B)
-- [ ] **Fase 2** — Diseño y medición de antenas con NanoVNA
-- [ ] **Fase 3** — Estación terrena de satélites meteorológicos
-- [ ] **Fase 4** — Red mesh LoRa IoT desplegada
+- [ ] **Fase 1** — Fundamentos SDR (espectro + ADS-B) — código completo, pendiente hardware
+- [ ] **Fase 2** — Diseño y medición de antenas con NanoVNA — sin empezar
+- [ ] **Fase 3** — Estación terrena de satélites meteorológicos — antena QFH y rotor Az/El diseñados, pendiente fabricación
+- [ ] **Fase 4** — Red LoRa/Meshtastic de comunicación y GPS para alta montaña — diseño y BOM cerrados, pendiente verificación de hardware
 
 Detalle completo, presupuesto y justificación técnica de cada fase en [`docs/roadmap.md`](docs/roadmap.md).
 
@@ -64,9 +70,9 @@ Detalle completo, presupuesto y justificación técnica de cada fase en [`docs/r
 
 ## 📫 Contacto
 
-- LinkedIn: 
-- Email: alvarogj1@correo.ugr.es
-- CV: 
+- LinkedIn: [tu perfil aquí]
+- Email: [tu-email@ejemplo.com]
+- CV: [enlace a tu CV]
 
 ---
 
