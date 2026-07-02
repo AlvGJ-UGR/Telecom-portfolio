@@ -21,3 +21,6 @@ Thumbs.db
 *.iq
 *.wav
 raw_captures/
+
+#ai
+./ai
