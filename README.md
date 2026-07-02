@@ -70,9 +70,9 @@ Detalle completo, presupuesto y justificación técnica de cada fase en [`docs/r
 
 ## 📫 Contacto
 
-- LinkedIn: [tu perfil aquí]
-- Email: [tu-email@ejemplo.com]
-- CV: [enlace a tu CV]
+- LinkedIn: 
+- Email: alvarogj1@correo.ugr.es
+- CV: 
 
 ---
 
