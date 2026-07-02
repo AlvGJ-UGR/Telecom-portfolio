@@ -22,7 +22,7 @@ The goal isn't just to "make it work" — each project follows the full engineer
 | Fabrication | 3D printer (PLA/PETG), soldering station |
 | Software | GNU Radio, SDR++/SDR#, KiCad, 4nec2, Python (NumPy/SciPy/Matplotlib) |
 | Embedded | ESP32, LoRa modules SX1276/78 |
-| Protocols studied | ADS-B, LoRaWAN, APT/LRPT (weather satellites), MQTT |
+| Protocols studied | ADS-B, LoRa (Meshtastic), APT/LRPT (weather satellites), MQTT, rotctld/Hamlib |
 
 ---
 
@@ -41,12 +41,18 @@ The goal isn't just to "make it work" — each project follows the full engineer
 
 ---
 
+## 🔗 Related project (separate repository)
+
+- **[wifi-csi-presence-sensing](https://github.com/AlvGJ-UGR/wifi-csi-presence-sensing)** — Presence sensing via WiFi Channel State Information (CSI) on ESP32, no cameras or dedicated sensors. Kept as a separate repository since it's a different line of work (signal processing / RF sensing, not communications); see its own README for how it differs from similar existing community projects.
+
+---
+
 ## 🗺️ Roadmap
 
-- [ ] **Phase 1** — SDR fundamentals (spectrum + ADS-B)
-- [ ] **Phase 2** — Antenna design and measurement with NanoVNA
-- [ ] **Phase 3** — Weather satellite ground station
-- [ ] **Phase 4** — Deployed LoRa IoT mesh network
+- [ ] **Phase 1** — SDR fundamentals (spectrum + ADS-B) — code complete, hardware pending
+- [ ] **Phase 2** — Antenna design and measurement with NanoVNA — not started
+- [ ] **Phase 3** — Weather satellite ground station — QFH antenna and Az/El rotor designed, fabrication pending
+- [ ] **Phase 4** — LoRa/Meshtastic alpine communication and GPS network — design and BOM closed, hardware verification pending
 
 Full details, budget, and technical rationale for each phase in [`docs/roadmap.md`](docs/roadmap.md).
 
@@ -66,7 +72,7 @@ Full details, budget, and technical rationale for each phase in [`docs/roadmap.m
 
 - LinkedIn: 
 - Email: alvarogj1@correo.ugr.es
-- CV: 
+- CV:
 
 ---
 
