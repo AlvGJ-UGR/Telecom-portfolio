@@ -4,9 +4,25 @@
 (function () {
   "use strict";
 
+  // --- mobile nav toggle --------------------------------------------------
+  var toggle = document.getElementById("navToggle");
+  var links = document.getElementById("navLinks");
+  if (toggle && links) {
+    toggle.addEventListener("click", function () {
+      var open = links.classList.toggle("is-open");
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    links.querySelectorAll("a").forEach(function (a) {
+      a.addEventListener("click", function () {
+        links.classList.remove("is-open");
+        toggle.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
+
   // --- scroll reveal -----------------------------------------------------
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var revealables = document.querySelectorAll(".reveal");
+  var revealables = document.querySelectorAll(".reveal, .reveal-img");
 
   if (reduceMotion || !("IntersectionObserver" in window)) {
     revealables.forEach(function (el) { el.classList.add("is-visible"); });
