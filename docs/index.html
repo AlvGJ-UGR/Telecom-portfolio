@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Álvaro González Jiménez — RF &amp; Telecommunications Engineering</title>
 <meta name="description" content="RF, antenna design, SDR, and satellite ground station projects — designed, simulated, and built end to end.">
+<meta property="og:title" content="Álvaro González Jiménez — RF & Telecommunications Engineering">
+<meta property="og:description" content="Antennas simulated in NEC2, a satellite tracking rotor with real homing logic, and SDR pipelines — every claim backed by a script or dataset in the repo.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/img/proj02-biquad-pattern.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230F1416'/%3E%3Cpath d='M2 20 L8 20 L11 8 L16 26 L19 14 L22 20 L30 20' stroke='%233C9CAA' stroke-width='2' fill='none'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -15,13 +21,16 @@
 <nav class="nav">
   <div class="wrap">
     <div class="nav-id"><b>AGJ</b> // rf-telecom-portfolio</div>
-    <div class="nav-links">
+    <div class="nav-links" id="navLinks">
       <a href="#projects">Projects</a>
       <a href="#toolkit">Toolkit</a>
       <a href="#bench">Bench notes</a>
       <a href="#contact">Contact</a>
-      <a href="https://github.com/AlvGJ-UGR" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://github.com/AlvGJ-UGR/telecom-portfolio" target="_blank" rel="noopener">GitHub ↗</a>
     </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
@@ -210,7 +219,7 @@
           </div>
         </div>
         <figure class="media-card">
-          <img src="assets/img/proj03-rotor-cad.png" alt="Parametric OpenSCAD model of the azimuth/elevation rotor, with home-switch mounts" loading="lazy">
+          <img class="reveal-img" src="assets/img/proj03-rotor-cad.png" alt="Parametric OpenSCAD model of the azimuth/elevation rotor, with home-switch mounts" loading="lazy">
           <figcaption><span>Az/El rotor — validated mesh</span><span class="tag">CAD</span></figcaption>
         </figure>
       </div>
@@ -232,9 +241,35 @@
       <h3>Antenna design &amp; NanoVNA characterization</h3>
       <p class="lede">Three antennas, three NEC2 models, one rule: simulate first, then tune the geometry against the simulation's own impedance — not the textbook's. Every result below, including the ones that didn't match expectations, comes from a script in the repo.</p>
 
+      <div class="smith-wrap reveal">
+        <svg viewBox="0 0 240 240" role="img" aria-label="Smith chart showing the simulated input impedance of the three antennas, normalized to 50 ohms">
+          <clipPath id="smithClip"><circle cx="120" cy="120" r="95"/></clipPath>
+          <g class="smith-grid" clip-path="url(#smithClip)">
+            <circle cx="141.9" cy="120" r="73.1"/>
+            <circle cx="167.5" cy="120" r="47.5"/>
+            <circle cx="191.2" cy="120" r="23.8"/>
+            <circle cx="215" cy="25" r="95"/>
+            <circle cx="215" cy="215" r="95"/>
+            <circle cx="215" cy="72.5" r="47.5"/>
+            <circle cx="215" cy="167.5" r="47.5"/>
+          </g>
+          <circle cx="120" cy="120" r="95" fill="none" stroke="#3B494D" stroke-width="1.2"/>
+          <line class="smith-axis" x1="25" y1="120" x2="215" y2="120"/>
+          <g class="smith-pt"><circle cx="93.6" cy="120.8" r="5" stroke="#3C9CAA"/><text x="93.6" y="108" text-anchor="middle">Yagi</text></g>
+          <g class="smith-pt"><circle cx="110.8" cy="104.7" r="5" stroke="#C1440E"/><text x="110.8" y="93" text-anchor="middle">Biquad</text></g>
+          <g class="smith-pt"><circle cx="186.3" cy="139.9" r="5" stroke="#D9A441"/><text x="186.3" y="155" text-anchor="middle">Helix</text></g>
+        </svg>
+        <div class="smith-legend">
+          <div class="row"><span class="sw" style="background:#3C9CAA"></span><span class="lbl">Yagi</span><span class="val">28.3−0.5j Ω · Γ 0.28</span></div>
+          <div class="row"><span class="sw" style="background:#C1440E"></span><span class="lbl">Biquad</span><span class="val">39.3+13.1j Ω · Γ 0.19</span></div>
+          <div class="row"><span class="sw" style="background:#D9A441"></span><span class="lbl">Helix</span><span class="val">173−155j Ω · Γ 0.73</span></div>
+        </div>
+        <span class="smith-cap">Normalized to 50 Ω, plotted from each antenna's own <span class="mono">get_impedance()</span> result — not redrawn by hand.</span>
+      </div>
+
       <div class="vna-grid">
         <div class="vna-card">
-          <div class="vna-screen"><img src="assets/img/proj02-yagi-vswr.png" alt="Simulated VSWR curve of the 868 MHz Yagi" loading="lazy"></div>
+          <div class="vna-screen"><img class="reveal-img" src="assets/img/proj02-yagi-vswr.png" alt="Simulated VSWR curve of the 868 MHz Yagi" loading="lazy"></div>
           <div class="vna-readout">
             <div class="name">Yagi-Uda · 3 el.</div>
             <dl>
@@ -246,7 +281,7 @@
           </div>
         </div>
         <div class="vna-card">
-          <div class="vna-screen"><img src="assets/img/proj02-biquad-pattern.png" alt="Simulated directional pattern of the biquad with reflector" loading="lazy"></div>
+          <div class="vna-screen"><img class="reveal-img" src="assets/img/proj02-biquad-pattern.png" alt="Simulated directional pattern of the biquad with reflector" loading="lazy"></div>
           <div class="vna-readout">
             <div class="name">Biquad + reflector</div>
             <dl>
@@ -259,7 +294,7 @@
           </div>
         </div>
         <div class="vna-card">
-          <div class="vna-screen"><img src="assets/img/proj02-helix-pattern.png" alt="Simulated narrow on-axis pattern of the 10-turn helix" loading="lazy"></div>
+          <div class="vna-screen"><img class="reveal-img" src="assets/img/proj02-helix-pattern.png" alt="Simulated narrow on-axis pattern of the 10-turn helix" loading="lazy"></div>
           <div class="vna-readout">
             <div class="name">Axial helix · 10 turns</div>
             <dl>
@@ -308,11 +343,11 @@
 
       <div class="media-grid-2">
         <figure class="media-card">
-          <img src="assets/img/proj01-coverage.png" alt="Polar plot of ADS-B detections by bearing, range, and altitude, from synthetic demo data" loading="lazy">
+          <img class="reveal-img" src="assets/img/proj01-coverage.png" alt="Polar plot of ADS-B detections by bearing, range, and altitude, from synthetic demo data" loading="lazy">
           <figcaption><span>Coverage — demo dataset</span><span class="tag">DATA</span></figcaption>
         </figure>
         <figure class="media-card">
-          <img src="assets/img/proj01-mount.png" alt="3D-printable mount for the ground-plane antenna" loading="lazy">
+          <img class="reveal-img" src="assets/img/proj01-mount.png" alt="3D-printable mount for the ground-plane antenna" loading="lazy">
           <figcaption><span>Ground-plane mount</span><span class="tag">CAD</span></figcaption>
         </figure>
       </div>
@@ -367,6 +402,26 @@
       </div>
     </article>
 
+  </div>
+</section>
+
+<section id="buildlog">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Build log</div>
+      <h2>Every part, rendered before it's trusted</h2>
+      <p>A slice of the raw CAD and trade-off output that fed the sections above — kept here instead of hidden in a folder.</p>
+    </div>
+  </div>
+  <div class="filmstrip reveal">
+    <div class="filmstrip-track">
+      <div class="film-card"><img class="reveal-img" src="assets/img/proj02-yagi-cad.png" alt="Yagi boom and element-holder CAD, single validated mesh" loading="lazy"><div class="cap"><b>Yagi boom</b><span>CAD</span></div></div>
+      <div class="film-card"><img class="reveal-img" src="assets/img/proj02-yagi-tradeoff.png" alt="Yagi element spacing trade-off sweep: gain, F/B and VSWR vs spacing" loading="lazy"><div class="cap"><b>Spacing sweep</b><span>NEC2</span></div></div>
+      <div class="film-card"><img class="reveal-img" src="assets/img/proj02-biquad-cad.png" alt="Biquad loop support with feed block, validated mesh" loading="lazy"><div class="cap"><b>Biquad posts</b><span>CAD</span></div></div>
+      <div class="film-card"><img class="reveal-img" src="assets/img/proj02-biquad-tradeoff.png" alt="Biquad reflector distance sweep: gain, F/B and VSWR vs distance" loading="lazy"><div class="cap"><b>Reflector sweep</b><span>NEC2</span></div></div>
+      <div class="film-card"><img class="reveal-img" src="assets/img/proj02-helix-cad.png" alt="Helix guide-rod support, validated mesh" loading="lazy"><div class="cap"><b>Helix guides</b><span>CAD</span></div></div>
+      <div class="film-card"><img class="reveal-img" src="assets/img/proj03-elevation-cad.png" alt="Elevation shaft-to-mast coupler CAD" loading="lazy"><div class="cap"><b>Shaft coupler</b><span>CAD</span></div></div>
+    </div>
   </div>
 </section>
 
