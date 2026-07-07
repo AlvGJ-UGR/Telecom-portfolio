@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Álvaro González Jiménez — RF &amp; Telecommunications Engineering</title>
+<meta name="description" content="RF, antenna design, SDR, and satellite ground station projects — designed, simulated, and built end to end.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <div class="nav-id"><b>AGJ</b> // rf-telecom-portfolio</div>
+    <div class="nav-links">
+      <a href="#projects">Projects</a>
+      <a href="#toolkit">Toolkit</a>
+      <a href="#bench">Bench notes</a>
+      <a href="#contact">Contact</a>
+      <a href="https://github.com/AlvGJ-UGR" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-eyebrow">Telecommunications Engineering — RF / SDR / Satellite Comms</div>
+    <h1>RF engineering, documented like it's meant to be <em>reproduced.</em></h1>
+    <p class="hero-sub">Four projects spanning 137 MHz to 2.4 GHz: antennas simulated in NEC2, a ground station tracking rotor with real homing logic, and software-defined radio pipelines — each one documented with the script, the dataset, or the measurement that backs it up.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#projects">View the projects</a>
+      <a class="btn" href="https://github.com/AlvGJ-UGR/telecom-portfolio" target="_blank" rel="noopener">Source on GitHub ↗</a>
+    </div>
+
+    <div class="scope reveal">
+      <div class="scope-head">
+        <span>SPAN 100 MHz – 3 GHz · SWEEP CONT</span>
+        <span class="live">ACTIVE PROJECTS</span>
+      </div>
+      <svg viewBox="0 0 720 220" preserveAspectRatio="none" role="img" aria-label="Frequencies used across the four projects: 137 MHz, 868 MHz, 1090 MHz, 2.4 GHz">
+        <defs>
+          <linearGradient id="traceFill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#3C9CAA" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#3C9CAA" stop-opacity="0"/>
+          </linearGradient>
+          <clipPath id="scopeClip"><rect x="0" y="0" width="720" height="220"/></clipPath>
+        </defs>
+        <g class="scope-grid">
+          <line x1="0" y1="40" x2="720" y2="40"/>
+          <line x1="0" y1="90" x2="720" y2="90"/>
+          <line x1="0" y1="140" x2="720" y2="140"/>
+          <line x1="0" y1="188" x2="720" y2="188"/>
+        </g>
+        <path class="scope-fill" d="M0,188 L0,175 L40,178 L80,170 L120,150 L150,80 L170,150 L200,172 L260,168 L300,176 L330,178 L360,60 L390,178 L430,174 L470,150 L520,20 L560,150 L600,175 L640,172 L680,178 L720,176 L720,220 L0,220 Z"/>
+        <path class="scope-trace" d="M0,188 L0,175 L40,178 L80,170 L120,150 L150,80 L170,150 L200,172 L260,168 L300,176 L330,178 L360,60 L390,178 L430,174 L470,150 L520,20 L560,150 L600,175 L640,172 L680,178 L720,176"/>
+
+        <g class="scope-marker">
+          <line x1="150" y1="80" x2="150" y2="200" stroke="#2A3538"/>
+          <circle cx="150" cy="80" r="3.5"/>
+          <text x="150" y="212" text-anchor="middle" class="freq">137 MHz</text>
+          <text x="150" y="196" text-anchor="middle">WX-SAT</text>
+        </g>
+        <g class="scope-marker">
+          <line x1="360" y1="60" x2="360" y2="200" stroke="#2A3538"/>
+          <circle cx="360" cy="60" r="3.5"/>
+          <text x="360" y="212" text-anchor="middle" class="freq">868 MHz</text>
+          <text x="360" y="196" text-anchor="middle">ISM / LoRa</text>
+        </g>
+        <g class="scope-marker">
+          <line x1="235" y1="168" x2="235" y2="200" stroke="#2A3538" opacity="0"/>
+        </g>
+        <g class="scope-marker">
+          <line x1="520" y1="20" x2="520" y2="200" stroke="#2A3538"/>
+          <circle cx="520" cy="20" r="3.5"/>
+          <text x="520" y="212" text-anchor="middle" class="freq">2.4 GHz</text>
+          <text x="520" y="196" text-anchor="middle">ISM</text>
+        </g>
+        <g class="scope-marker">
+          <line x1="640" y1="172" x2="640" y2="200" stroke="#2A3538" opacity="0.4"/>
+          <circle cx="644" cy="120" r="0" opacity="0"/>
+        </g>
+
+        <g clip-path="url(#scopeClip)">
+          <rect class="scope-sweep sweep-line" x="-2" y="0" width="2" height="220"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<section class="loop">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">How this repository works</div>
+      <h2>One loop, run four times</h2>
+      <p>Every project sits somewhere on the same cycle. Right now, all four are stalled at the same stage — and that's stated plainly, not hidden behind polish.</p>
+    </div>
+    <div class="loop-diagram reveal">
+      <div class="loop-node is-done">
+        <div class="ring">01</div>
+        <h4>Design</h4>
+        <p>Closed-form theory before any geometry is drawn</p>
+        <span class="tally">4/4 projects</span>
+      </div>
+      <div class="loop-connector"></div>
+      <div class="loop-node is-done">
+        <div class="ring">02</div>
+        <h4>Simulate</h4>
+        <p>NEC2 for antennas, Skyfield for orbits — validated against known references first</p>
+        <span class="tally">4/4 projects</span>
+      </div>
+      <div class="loop-connector"></div>
+      <div class="loop-node is-live">
+        <div class="ring">03</div>
+        <h4>Fabricate</h4>
+        <p>3D models checked as real printable meshes, not just "compiles"</p>
+        <span class="tally">0/4 built</span>
+      </div>
+      <div class="loop-connector"></div>
+      <div class="loop-node">
+        <div class="ring">04</div>
+        <h4>Measure</h4>
+        <p>NanoVNA, real S11, real gain — the only thing that actually settles a design</p>
+        <span class="tally">0/4 measured</span>
+      </div>
+      <div class="loop-connector"></div>
+      <div class="loop-node">
+        <div class="ring">05</div>
+        <h4>Iterate</h4>
+        <p>Two open findings already waiting for this step — see bench notes below</p>
+        <span class="tally">2 open questions</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="toolkit">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Equipment</div>
+      <h2>What's actually on the bench</h2>
+      <p>Personal equipment, built up incrementally rather than bought as a kit — a constraint that shapes some of the design decisions below (e.g. cheap steppers over server-grade motors).</p>
+    </div>
+    <div class="rack reveal">
+      <div class="rack-row"><span class="cat">RF / Measurement</span><span class="item">RTL-SDR Blog v3 <span>· wideband receive</span></span><span class="note">SDR dongle</span></div>
+      <div class="rack-row"><span class="cat">RF / Measurement</span><span class="item">NanoVNA <span>· S11 / VSWR / bandwidth</span></span><span class="note">vector network analyzer</span></div>
+      <div class="rack-row"><span class="cat">Fabrication</span><span class="item">FDM 3D printer <span>· PLA / PETG</span></span><span class="note">antenna &amp; rotor parts</span></div>
+      <div class="rack-row"><span class="cat">Embedded</span><span class="item">ESP32, Arduino <span>· 28BYJ-48 + ULN2003 steppers</span></span><span class="note">rotor control</span></div>
+      <div class="rack-row"><span class="cat">Software</span><span class="item">NEC2 (PyNEC), GNU Radio, KiCad</span><span class="note">simulation &amp; DSP</span></div>
+      <div class="rack-row"><span class="cat">Software</span><span class="item">Gpredict + Hamlib rotctld, Skyfield</span><span class="note">orbital tracking</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Projects</div>
+      <h2>Four projects, four bands</h2>
+      <p>Ordered by how far each has moved from calculation to hardware. Every claim below links to the script, model, or dataset that produced it — nothing here is a screenshot without a source.</p>
+    </div>
+
+    <!-- PROJECT 03 — CAD-centric + live tracking-arc animation -->
+    <article class="project reveal tr-cad">
+      <div class="project-copy">
+        <span class="project-index mono">SPECTRUM POSITION</span>
+        <div class="ruler">
+          <div class="ruler-track">
+            <div class="band" style="left:8%"></div>
+            <div class="band here" style="left:14%"></div>
+            <div class="band" style="left:62%"></div>
+            <div class="band" style="left:88%"></div>
+          </div>
+          <span class="ruler-label"><b>137 MHz</b> · 100M–3G span</span>
+        </div>
+        <div class="eyebrow">137 MHz — NOAA / Meteor-M2</div>
+        <h3>Satellite ground station: QFH + 2-axis tracking rotor</h3>
+        <p class="lede">A quadrifilar helicoidal antenna for weather-satellite reception, motorized on an azimuth/elevation rotor that speaks the same <span class="mono">rotctld</span> protocol as Gpredict — plus a standalone Skyfield client that can point at a named satellite with no GUI at all.</p>
+        <dl class="spec-list">
+          <div><dt>Resolution</dt><dd><span class="mono">0.088°/step</span> — from the gearbox's real 63.684:1 ratio, not the rounded "1/64" spec sheet</dd></div>
+          <div><dt>Homing</dt><dd>Limit switches on both axes; firmware won't trust a position it hasn't referenced</dd></div>
+          <div><dt>Antenna choice</dt><dd>QFH's no-null hemisphere pattern over a higher-gain crossed-Yagi, deliberately — the cheap rotor's torque budget decided it</dd></div>
+        </dl>
+        <div class="finding">
+          <b>Caught before it shipped</b>
+          Rendering every part to an actual mesh — not just "no compile errors" — found the elevation fork printing as two disconnected halves, and a shaft coupler hollow on both sides of its own joint. Both fixed and re-verified.
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/AlvGJ-UGR/telecom-portfolio/tree/main/projects/03-satellite-ground-station" target="_blank" rel="noopener">Project folder ↗</a>
+          <a href="https://github.com/AlvGJ-UGR/telecom-portfolio/blob/main/projects/03-satellite-ground-station/rotor/rotor_design.md" target="_blank" rel="noopener">Rotor design notes ↗</a>
+        </div>
+      </div>
+      <div class="visual">
+        <div class="trackviz">
+          <svg viewBox="0 0 280 150" role="img" aria-label="Illustration of the rotor tracking a satellite pass across the sky">
+            <path class="track-path" d="M20,120 C 70,10 210,10 260,120"/>
+            <line x1="20" y1="120" x2="260" y2="120" stroke="#2A3538" stroke-width="1"/>
+            <g class="track-beam-group">
+              <line x1="140" y1="132" x2="140" y2="60" stroke="#C1440E" stroke-width="2"/>
+            </g>
+            <circle cx="140" cy="132" r="4" fill="#171F22" stroke="#3B494D"/>
+            <circle class="track-sat" r="4.5" fill="#3C9CAA"/>
+          </svg>
+          <div class="trackviz-foot">
+            <span>Illustrative pass, not live telemetry</span>
+            <span><b>AZ/EL</b> commanded via rotctld</span>
+          </div>
+        </div>
+        <figure class="media-card">
+          <img src="assets/img/proj03-rotor-cad.png" alt="Parametric OpenSCAD model of the azimuth/elevation rotor, with home-switch mounts" loading="lazy">
+          <figcaption><span>Az/El rotor — validated mesh</span><span class="tag">CAD</span></figcaption>
+        </figure>
+      </div>
+    </article>
+
+    <!-- PROJECT 02 — measurement-centric, NanoVNA-style comparison -->
+    <article class="project reveal">
+      <div class="project-index mono">SPECTRUM POSITION</div>
+      <div class="ruler">
+        <div class="ruler-track">
+          <div class="band" style="left:8%"></div>
+          <div class="band" style="left:14%"></div>
+          <div class="band here" style="left:62%"></div>
+          <div class="band here" style="left:88%"></div>
+        </div>
+        <span class="ruler-label"><b>868 MHz · 2.4 GHz</b> · 100M–3G span</span>
+      </div>
+      <div class="eyebrow">868 MHz · 2.4 GHz — ISM band</div>
+      <h3>Antenna design &amp; NanoVNA characterization</h3>
+      <p class="lede">Three antennas, three NEC2 models, one rule: simulate first, then tune the geometry against the simulation's own impedance — not the textbook's. Every result below, including the ones that didn't match expectations, comes from a script in the repo.</p>
+
+      <div class="vna-grid">
+        <div class="vna-card">
+          <div class="vna-screen"><img src="assets/img/proj02-yagi-vswr.png" alt="Simulated VSWR curve of the 868 MHz Yagi" loading="lazy"></div>
+          <div class="vna-readout">
+            <div class="name">Yagi-Uda · 3 el.</div>
+            <dl>
+              <dt>Freq</dt><dd>868 MHz</dd>
+              <dt>VSWR</dt><dd>1.77</dd>
+              <dt>Gain</dt><dd>8.3 dBi</dd>
+              <dt>F/B</dt><dd>5.3 dB</dd>
+            </dl>
+          </div>
+        </div>
+        <div class="vna-card">
+          <div class="vna-screen"><img src="assets/img/proj02-biquad-pattern.png" alt="Simulated directional pattern of the biquad with reflector" loading="lazy"></div>
+          <div class="vna-readout">
+            <div class="name">Biquad + reflector</div>
+            <dl>
+              <dt>Freq</dt><dd>2.44 GHz</dd>
+              <dt>VSWR</dt><dd>1.46</dd>
+              <dt>Gain</dt><dd>8.2 dBi</dd>
+              <dt>F/B</dt><dd>3.96 dB</dd>
+            </dl>
+            <div class="vna-flag">⚠ F/B lower than forum folklore suggests — mesh-convergence checked, not a sim artifact</div>
+          </div>
+        </div>
+        <div class="vna-card">
+          <div class="vna-screen"><img src="assets/img/proj02-helix-pattern.png" alt="Simulated narrow on-axis pattern of the 10-turn helix" loading="lazy"></div>
+          <div class="vna-readout">
+            <div class="name">Axial helix · 10 turns</div>
+            <dl>
+              <dt>Freq</dt><dd>2.44 GHz</dd>
+              <dt>Zin</dt><dd>173−155j Ω</dd>
+              <dt>Gain</dt><dd>12.5 dBi</dd>
+            </dl>
+            <div class="vna-flag">⚠ Match unresolved — gap sweep tried and failed, see bench notes</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-links">
+        <a href="https://github.com/AlvGJ-UGR/telecom-portfolio/tree/main/projects/02-antenna-design-vna" target="_blank" rel="noopener">Project folder ↗</a>
+        <a href="https://github.com/AlvGJ-UGR/telecom-portfolio/blob/main/projects/02-antenna-design-vna/antenna/yagi_design.md" target="_blank" rel="noopener">Yagi write-up ↗</a>
+      </div>
+    </article>
+
+    <!-- PROJECT 01 — signal-processing pipeline, animated -->
+    <article class="project reveal">
+      <div class="project-index mono">SPECTRUM POSITION</div>
+      <div class="ruler">
+        <div class="ruler-track">
+          <div class="band here" style="left:8%"></div>
+          <div class="band" style="left:14%"></div>
+          <div class="band" style="left:62%"></div>
+          <div class="band" style="left:88%"></div>
+        </div>
+        <span class="ruler-label"><b>1090 MHz</b> · 100M–3G span</span>
+      </div>
+      <div class="eyebrow">1090 MHz — Mode S / ADS-B</div>
+      <h3>SDR fundamentals: live spectrum + aircraft tracking</h3>
+      <p class="lede">A λ/4 ground-plane antenna feeds an RTL-SDR into <span class="mono">dump1090</span>; a small Python pipeline turns decoded frames into range/bearing for every aircraft and plots real coverage.</p>
+
+      <div class="pipeline">
+        <svg viewBox="0 0 720 90" role="img" aria-label="Signal pipeline: antenna to RTL-SDR to dump1090 to geolocation script to coverage plot">
+          <path class="pipe-line" d="M18,60 L 692,60"/>
+          <circle class="pipe-pulse pulse-anim motion-path" r="4"/>
+          <g class="pipe-node"><rect x="0" y="40" width="110" height="40" rx="2"/><text x="55" y="56" text-anchor="middle">Ground-plane</text><text class="sub" x="55" y="70" text-anchor="middle">λ/4 · 1090 MHz</text></g>
+          <g class="pipe-node"><rect x="153" y="40" width="110" height="40" rx="2"/><text x="208" y="56" text-anchor="middle">RTL-SDR</text><text class="sub" x="208" y="70" text-anchor="middle">IQ capture</text></g>
+          <g class="pipe-node"><rect x="306" y="40" width="110" height="40" rx="2"/><text x="361" y="56" text-anchor="middle">dump1090</text><text class="sub" x="361" y="70" text-anchor="middle">Mode S decode</text></g>
+          <g class="pipe-node"><rect x="459" y="40" width="110" height="40" rx="2"/><text x="514" y="56" text-anchor="middle">adsb_logger.py</text><text class="sub" x="514" y="70" text-anchor="middle">Haversine geoloc.</text></g>
+          <g class="pipe-node"><rect x="610" y="40" width="108" height="40" rx="2"/><text x="664" y="56" text-anchor="middle">coverage_plot.py</text><text class="sub" x="664" y="70" text-anchor="middle">polar PSD plot</text></g>
+        </svg>
+      </div>
+
+      <div class="media-grid-2">
+        <figure class="media-card">
+          <img src="assets/img/proj01-coverage.png" alt="Polar plot of ADS-B detections by bearing, range, and altitude, from synthetic demo data" loading="lazy">
+          <figcaption><span>Coverage — demo dataset</span><span class="tag">DATA</span></figcaption>
+        </figure>
+        <figure class="media-card">
+          <img src="assets/img/proj01-mount.png" alt="3D-printable mount for the ground-plane antenna" loading="lazy">
+          <figcaption><span>Ground-plane mount</span><span class="tag">CAD</span></figcaption>
+        </figure>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/AlvGJ-UGR/telecom-portfolio/tree/main/projects/01-sdr-fundamentals" target="_blank" rel="noopener">Project folder ↗</a>
+      </div>
+    </article>
+
+    <!-- PROJECT 04 — architecture / mesh diagram, honesty-forward -->
+    <article class="project reveal">
+      <div class="project-index mono">SPECTRUM POSITION</div>
+      <div class="ruler">
+        <div class="ruler-track">
+          <div class="band" style="left:8%"></div>
+          <div class="band here" style="left:14%"></div>
+          <div class="band" style="left:62%"></div>
+          <div class="band" style="left:88%"></div>
+        </div>
+        <span class="ruler-label"><b>868 MHz</b> · 100M–3G span</span>
+      </div>
+      <span class="project-status"><span class="dot"></span>Planned</span>
+      <div class="eyebrow">868 MHz — LPWAN mesh</div>
+      <h3>LoRa / Meshtastic alpine communication network</h3>
+      <p class="lede">Off-grid GPS tracking and messaging for mountain hiking on Meshtastic + generic ESP32 hardware. Shown here as designed: with its unverified assumptions attached to the diagram, not buried in a table.</p>
+
+      <div class="mesh">
+        <svg viewBox="0 0 640 200" role="img" aria-label="Mesh network diagram: personal tracker, group nodes, gateway with directional antenna, and internet bridge">
+          <line class="mesh-link" x1="90" y1="150" x2="230" y2="90"/>
+          <line class="mesh-link" x1="230" y1="90" x2="230" y2="170"/>
+          <line class="mesh-link" x1="230" y1="90" x2="390" y2="60"/>
+          <line class="mesh-link" x1="230" y1="170" x2="390" y2="60"/>
+          <line class="mesh-link" x1="390" y1="60" x2="540" y2="60"/>
+
+          <g class="mesh-node"><circle cx="90" cy="150" r="16"/><text x="90" y="180" text-anchor="middle">Personal</text></g>
+          <g class="mesh-node"><circle cx="230" cy="90" r="14"/><text x="230" y="70" text-anchor="middle">Group 2</text></g>
+          <g class="mesh-node"><circle cx="230" cy="170" r="14"/><text x="230" y="196" text-anchor="middle">Group 3</text></g>
+          <g class="mesh-node gateway"><circle cx="390" cy="60" r="18"/><text x="390" y="34" text-anchor="middle">Gateway</text></g>
+          <g class="mesh-node"><circle cx="540" cy="60" r="14"/><text x="540" y="34" text-anchor="middle">Internet</text></g>
+
+          <line class="mesh-callout-line" x1="90" y1="150" x2="90" y2="118"/>
+          <text class="mesh-callout" x="60" y="112">band unverified ⚠</text>
+          <line class="mesh-callout-line" x1="390" y1="60" x2="440" y2="110"/>
+          <text class="mesh-callout" x="400" y="126">600$ directional antenna</text>
+        </svg>
+      </div>
+      <div class="finding">
+        <b>Doesn't promise</b>
+        Coverage from anywhere on the mountain. LoRa's real-terrain range over a home-built mesh is the actual open research question this project is for — not assumed away.
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/AlvGJ-UGR/telecom-portfolio/tree/main/projects/04-alpine-mesh-tracking" target="_blank" rel="noopener">Project folder ↗</a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section id="bench" class="bench">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Bench notes</div>
+      <h2>Findings reported as they happened</h2>
+      <p>A portfolio only proves something if the failures are in it too. Three examples from this repository's own commit history.</p>
+    </div>
+    <div class="bench-grid">
+      <div class="bench-card reveal">
+        <span class="src">Project 02 — biquad reflector</span>
+        <p>Simulated front-to-back ratio: ~4 dB.</p>
+        <p>Home-built biquads have a reputation for much higher F/B in forum folklore. A mesh-convergence check (229 → 1067 wires) ruled out a simulation artifact — this looks like a real property of the geometry, not a bug. Left as an open question for the NanoVNA, not smoothed into a nicer number.</p>
+      </div>
+      <div class="bench-card reveal">
+        <span class="src">Project 02 — helical antenna</span>
+        <p>PyNEC's built-in helix generator silently produced zero wires.</p>
+        <p>Traced to a known, already-reported upstream bug rather than assumed to be a modeling mistake. Worked around by building the helix as a validated polyline of straight segments — the standard fallback technique, not an improvisation.</p>
+      </div>
+      <div class="bench-card reveal">
+        <span class="src">Project 03 — rotor mechanics</span>
+        <p>Two 3D-printable parts looked correct in the CAD viewer and still failed.</p>
+        <p>Rendering every part to an actual mesh and checking real face connectivity — not just "no compile errors" — caught a fork that would've printed as two disconnected halves, and a shaft coupler that was hollow on both sides of its own joint.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Get in touch</div>
+      <h2>Open to RF, embedded, and comms engineering roles.</h2>
+      <p style="max-width:56ch;">Telecommunications Engineering student — Universidad de Granada. Full technical write-ups, scripts, and CAD sources for everything above live in the GitHub repository.</p>
+      <div class="contact-row">
+        <a class="btn btn-primary" href="mailto:alvarogj1@correo.ugr.es">alvarogj1@correo.ugr.es</a>
+        <a class="btn" href="https://github.com/AlvGJ-UGR" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Álvaro González Jiménez — MIT licensed</span>
+    <span>Site source: <code class="mono">/docs</code> · No frameworks, no build step</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

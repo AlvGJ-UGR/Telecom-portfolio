@@ -1,0 +1,619 @@
+/* ==========================================================================
+   RF & Telecommunications Engineering Portfolio — stylesheet
+   Design language: test-bench instrument panel. Dark charcoal enclosure,
+   phosphor-trace accents pulled from the project's own NEC2 plot palette
+   (teal ~#1f6f8b, burnt rust ~#c1440e), graph-paper structure, monospace
+   readouts for anything measured. Not a template — see docs/DESIGN.md.
+   ========================================================================== */
+
+:root {
+  /* --- color tokens --- */
+  --bg:         #0F1416;
+  --bg-alt:     #0B1012;
+  --panel:      #171F22;
+  --panel-2:    #1D2629;
+  --line:       #2A3538;
+  --line-bright:#3B494D;
+  --ink:        #E9E4D8;
+  --ink-dim:    #97A3A4;
+  --ink-faint:  #5E6B6D;
+
+  --teal:       #3C9CAA;
+  --teal-dim:   #2C7480;
+  --rust:       #C1440E;
+  --rust-dim:   #8F3510;
+  --olive:      #8CA35C;
+  --amber:      #D9A441;
+
+  --status-progress: var(--amber);
+  --status-planned:  var(--ink-faint);
+
+  /* --- type tokens --- */
+  --f-display: 'Space Grotesk', 'IBM Plex Sans', sans-serif;
+  --f-body:    'IBM Plex Sans', -apple-system, sans-serif;
+  --f-mono:    'IBM Plex Mono', ui-monospace, monospace;
+
+  /* --- layout tokens --- */
+  --maxw: 1180px;
+  --gutter: clamp(20px, 5vw, 64px);
+  --radius: 3px;
+  --grid-size: 42px;
+}
+
+/* --- reset --- */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size);
+  background-position: -1px -1px;
+  background-attachment: fixed;
+  background-color: var(--bg);
+}
+
+/* subtle vignette so the grid doesn't fight with content */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(15,20,22,0) 0%, var(--bg) 78%);
+  z-index: 0;
+}
+
+a { color: var(--teal); text-decoration: none; }
+a:hover { color: var(--ink); }
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--f-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--ink);
+}
+
+p { margin: 0 0 1em; color: var(--ink-dim); }
+p:last-child { margin-bottom: 0; }
+
+.mono { font-family: var(--f-mono); }
+
+.wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+  position: relative;
+  z-index: 1;
+}
+
+section { padding: clamp(56px, 9vw, 108px) 0; position: relative; }
+section + section { border-top: 1px solid var(--line); }
+
+/* --- eyebrow / frequency labels (structural device, not decoration:
+   each project genuinely operates at the frequency shown) --- */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  font-family: var(--f-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 14px;
+}
+.eyebrow::before {
+  content: "";
+  width: 7px; height: 7px;
+  background: currentColor;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--teal) 20%, transparent);
+}
+
+.section-head { max-width: 640px; margin-bottom: 48px; }
+.section-head h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 12px; }
+.section-head p { font-size: 1.02rem; }
+
+/* ==========================================================================
+   NAV
+   ========================================================================== */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  backdrop-filter: blur(10px);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  border-bottom: 1px solid var(--line);
+}
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+.nav-id { font-family: var(--f-mono); font-size: 0.85rem; color: var(--ink); letter-spacing: 0.02em; }
+.nav-id b { color: var(--teal); font-weight: 600; }
+.nav-links { display: flex; gap: 28px; font-family: var(--f-mono); font-size: 0.82rem; }
+.nav-links a { color: var(--ink-dim); }
+.nav-links a:hover { color: var(--ink); }
+.nav-toggle { display: none; }
+
+@media (max-width: 720px) {
+  .nav-links { display: none; }
+}
+
+/* ==========================================================================
+   HERO
+   ========================================================================== */
+.hero { padding-top: clamp(64px, 10vw, 120px); }
+.hero .wrap { display: grid; gap: 28px; }
+
+.hero-eyebrow {
+  font-family: var(--f-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.hero h1 {
+  font-size: clamp(2.1rem, 5.4vw, 3.85rem);
+  line-height: 1.06;
+  max-width: 15ch;
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--teal);
+}
+
+.hero-sub {
+  font-size: clamp(1.02rem, 1.6vw, 1.2rem);
+  max-width: 56ch;
+  color: var(--ink-dim);
+}
+
+.hero-cta { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px; }
+
+.btn {
+  font-family: var(--f-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  padding: 11px 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line-bright);
+  color: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+}
+.btn:hover { border-color: var(--teal); color: var(--ink); transform: translateY(-1px); }
+.btn-primary { background: var(--teal-dim); border-color: var(--teal); }
+.btn-primary:hover { background: var(--teal); }
+
+/* --- spectrum sweep signature element --- */
+.scope {
+  margin-top: 20px;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, var(--panel), var(--bg-alt));
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+}
+.scope-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--f-mono);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.scope-head .live { color: var(--rust); display: inline-flex; align-items: center; gap: 6px; }
+.scope-head .live::before {
+  content: "";
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--rust);
+  animation: blink 1.6s ease-in-out infinite;
+}
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+
+.scope svg { display: block; width: 100%; height: auto; }
+.scope-trace { fill: none; stroke: var(--teal); stroke-width: 1.6; }
+.scope-fill { fill: url(#traceFill); opacity: 0.5; }
+.scope-grid line { stroke: var(--line); stroke-width: 1; }
+.scope-sweep {
+  stroke: var(--ink);
+  stroke-width: 1;
+  opacity: 0.55;
+}
+.scope-marker circle { fill: var(--bg); stroke: var(--rust); stroke-width: 1.6; }
+.scope-marker text {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  fill: var(--ink-dim);
+}
+.scope-marker .freq { fill: var(--ink); font-weight: 500; }
+
+.sweep-line {
+  animation: sweep 7s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sweep-line { animation: none; opacity: 0; }
+}
+@keyframes sweep {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(720px); }
+}
+
+/* ==========================================================================
+   SPECTRUM RULER — reusable "you are here" motif, repeated per project
+   ========================================================================== */
+.ruler { display: flex; align-items: center; gap: 14px; margin: 18px 0 26px; }
+.ruler-track {
+  position: relative;
+  flex: 1;
+  height: 3px;
+  background: var(--line-bright);
+  border-radius: 2px;
+}
+.ruler-track .band {
+  position: absolute; top: -3px; width: 9px; height: 9px;
+  border-radius: 50%; background: var(--bg);
+  border: 2px solid var(--ink-faint);
+  transform: translateX(-50%);
+}
+.ruler-track .band.here {
+  border-color: var(--rust);
+  background: var(--rust);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--rust) 22%, transparent);
+}
+.ruler-label { font-family: var(--f-mono); font-size: 0.72rem; color: var(--ink-faint); white-space: nowrap; }
+.ruler-label b { color: var(--rust); font-weight: 500; }
+
+/* ==========================================================================
+   ENGINEERING LOOP — replaces the old "approach" cards + "roadmap" strip
+   ========================================================================== */
+.loop { background: var(--bg-alt); }
+.loop-diagram { display: flex; align-items: stretch; gap: 0; margin-top: 40px; }
+.loop-node {
+  flex: 1;
+  position: relative;
+  padding: 0 18px;
+  text-align: center;
+}
+.loop-node .ring {
+  width: 54px; height: 54px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  border: 1.5px solid var(--line-bright);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--f-mono); font-size: 0.72rem; color: var(--ink-faint);
+  position: relative;
+  background: var(--panel);
+}
+.loop-node.is-live .ring { border-color: var(--amber); color: var(--amber); }
+.loop-node.is-done .ring { border-color: var(--teal); color: var(--teal); }
+.loop-node.is-live .ring::after {
+  content: ""; position: absolute; inset: -6px;
+  border-radius: 50%; border: 1px solid var(--amber);
+  opacity: 0.5; animation: pulse-ring 2.2s ease-out infinite;
+}
+@keyframes pulse-ring {
+  0% { transform: scale(0.85); opacity: 0.6; }
+  100% { transform: scale(1.35); opacity: 0; }
+}
+.loop-node h4 { font-size: 0.92rem; margin-bottom: 6px; }
+.loop-node p { font-size: 0.78rem; color: var(--ink-faint); max-width: 20ch; margin: 0 auto; }
+.loop-node .tally { font-family: var(--f-mono); font-size: 0.68rem; color: var(--ink-dim); margin-top: 8px; display: block; }
+.loop-connector {
+  flex: 0 0 auto;
+  width: clamp(20px, 4vw, 56px);
+  align-self: flex-start;
+  margin-top: 27px;
+  height: 1px;
+  background: repeating-linear-gradient(90deg, var(--line-bright) 0 6px, transparent 6px 11px);
+  position: relative;
+  top: 0;
+}
+@media (max-width: 900px) {
+  .loop-diagram { flex-direction: column; }
+  .loop-connector { width: 1px; height: 24px; align-self: center; margin: 0; background: repeating-linear-gradient(180deg, var(--line-bright) 0 6px, transparent 6px 11px); }
+  .loop-node p { max-width: 32ch; }
+}
+
+/* ==========================================================================
+   PROJECT — shared shell, distinct per-project treatment classes below
+   ========================================================================== */
+.project { padding: 64px 0; }
+.project + .project { border-top: 1px dashed var(--line); }
+.project-head { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 6px; }
+.project-index { font-family: var(--f-mono); font-size: 0.72rem; color: var(--ink-faint); }
+
+/* --- treatment: CAD hero (Project 03) --- */
+.tr-cad { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: center; }
+.tr-cad .visual { display: grid; gap: 12px; }
+
+/* --- tracking arc animation --- */
+.trackviz { border: 1px solid var(--line); background: var(--panel); border-radius: var(--radius); padding: 18px; }
+.trackviz svg { width: 100%; height: auto; display: block; }
+.track-path { fill: none; stroke: var(--line-bright); stroke-width: 1; stroke-dasharray: 3 4; }
+.track-sat {
+  offset-path: path("M20,120 C 70,10 210,10 260,120");
+  animation: fly 5s ease-in-out infinite;
+}
+@keyframes fly {
+  0%   { offset-distance: 0%; }
+  50%  { offset-distance: 100%; }
+  100% { offset-distance: 0%; }
+}
+.track-beam-group { transform-origin: 140px 132px; animation: aim 5s ease-in-out infinite; }
+@keyframes aim {
+  0%   { transform: rotate(-52deg); }
+  50%  { transform: rotate(52deg); }
+  100% { transform: rotate(-52deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .track-sat, .track-beam-group { animation: none; }
+}
+.trackviz-foot { display: flex; justify-content: space-between; font-family: var(--f-mono); font-size: 0.7rem; color: var(--ink-faint); margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line); }
+.trackviz-foot b { color: var(--ink); font-weight: 500; }
+
+/* --- treatment: instrument comparison (Project 02) --- */
+.vna-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 32px; }
+.vna-card { border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); overflow: hidden; }
+.vna-screen { position: relative; background: var(--bg-alt); }
+.vna-screen img { display: block; width: 100%; height: auto; opacity: 0.94; }
+.vna-screen::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,0.12) 0 1px, transparent 1px 3px);
+  pointer-events: none;
+}
+.vna-readout { padding: 14px 16px; font-family: var(--f-mono); }
+.vna-readout .name { font-size: 0.92rem; color: var(--ink); margin-bottom: 10px; font-family: var(--f-body); font-weight: 600; }
+.vna-readout dl { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; font-size: 0.78rem; }
+.vna-readout dt { color: var(--ink-faint); }
+.vna-readout dd { margin: 0; color: var(--teal); text-align: right; }
+.vna-flag { margin-top: 10px; font-size: 0.74rem; color: var(--amber); border-top: 1px solid var(--line); padding-top: 8px; }
+@media (max-width: 900px) { .vna-grid { grid-template-columns: 1fr; } }
+
+/* --- treatment: signal pipeline (Project 01) --- */
+.pipeline { margin: 36px 0 8px; }
+.pipeline svg { width: 100%; height: auto; }
+.pipe-line { fill: none; stroke: var(--line-bright); stroke-width: 1.5; stroke-dasharray: 5 5; }
+.pipe-pulse { fill: var(--teal); }
+.pipe-node rect { fill: var(--panel); stroke: var(--line-bright); }
+.pipe-node text { font-family: var(--f-mono); fill: var(--ink-dim); font-size: 10.5px; }
+.pipe-node .sub { fill: var(--ink-faint); font-size: 9px; }
+.motion-path { offset-path: path("M18,60 L 692,60"); }
+.pulse-anim { animation: pulse-travel 3.2s linear infinite; }
+@keyframes pulse-travel {
+  0%   { offset-distance: 0%; opacity: 0; }
+  8%   { opacity: 1; }
+  92%  { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .pulse-anim { animation: none; opacity: 0; } }
+
+/* --- treatment: mesh network diagram (Project 04) --- */
+.mesh { margin-top: 32px; border: 1px solid var(--line); background: var(--panel); border-radius: var(--radius); padding: 20px; }
+.mesh svg { width: 100%; height: auto; }
+.mesh-link { stroke: var(--line-bright); stroke-width: 1.3; stroke-dasharray: 4 4; }
+.mesh-node circle { fill: var(--bg-alt); stroke: var(--teal); stroke-width: 1.5; }
+.mesh-node.gateway circle { stroke: var(--rust); }
+.mesh-node text { font-family: var(--f-mono); font-size: 9.5px; fill: var(--ink-dim); }
+.mesh-callout {
+  font-family: var(--f-mono); font-size: 9px; fill: var(--amber);
+}
+.mesh-callout-line { stroke: var(--amber); stroke-width: 1; opacity: 0.6; }
+
+/* generic project text bits reused across treatments */
+.project h3 { font-size: clamp(1.35rem, 2.2vw, 1.75rem); margin-bottom: 10px; }
+.project .lede { font-size: 1rem; color: var(--ink-dim); max-width: 62ch; margin-bottom: 8px; }
+.project-links { display: flex; gap: 18px; font-family: var(--f-mono); font-size: 0.82rem; flex-wrap: wrap; margin-top: 20px; }
+.project-links a { display: inline-flex; align-items: center; gap: 6px; color: var(--ink-dim); border-bottom: 1px solid transparent; }
+.project-links a:hover { color: var(--teal); border-color: var(--teal); }
+
+.finding { margin-top: 20px; border-left: 2px solid var(--amber); padding: 10px 14px; background: color-mix(in srgb, var(--amber) 6%, transparent); font-size: 0.86rem; color: var(--ink-dim); max-width: 70ch; }
+.finding b { color: var(--amber); font-family: var(--f-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 4px; }
+
+@media (max-width: 900px) {
+  .tr-cad { grid-template-columns: 1fr; }
+}
+
+/* ==========================================================================
+   TOOLKIT (rack list, not icon grid)
+   ========================================================================== */
+.rack {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--panel);
+}
+.rack-row {
+  display: grid;
+  grid-template-columns: 140px 1fr 180px;
+  gap: 20px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--line);
+  align-items: baseline;
+  font-size: 0.92rem;
+}
+.rack-row:last-child { border-bottom: none; }
+.rack-row .cat {
+  font-family: var(--f-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.rack-row .item { color: var(--ink); }
+.rack-row .item span { color: var(--ink-dim); }
+.rack-row .note {
+  font-family: var(--f-mono);
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+  text-align: right;
+}
+
+@media (max-width: 720px) {
+  .rack-row { grid-template-columns: 1fr; gap: 4px; }
+  .rack-row .note { text-align: left; }
+}
+
+/* ==========================================================================
+   PROJECTS
+   ========================================================================== */
+.project {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 48px;
+  padding: 52px 0;
+  align-items: start;
+}
+.project + .project { border-top: 1px dashed var(--line); }
+
+.project-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--f-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px 4px 8px;
+  border: 1px solid var(--line-bright);
+  border-radius: 999px;
+  color: var(--ink-dim);
+  margin-bottom: 18px;
+}
+.project-status .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--status-planned); }
+.project-status.is-progress .dot { background: var(--status-progress); box-shadow: 0 0 0 3px color-mix(in srgb, var(--amber) 18%, transparent); }
+.project-status.is-progress { color: var(--amber); border-color: color-mix(in srgb, var(--amber) 45%, var(--line-bright)); }
+
+.project h3 {
+  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+  margin-bottom: 14px;
+  max-width: 22ch;
+}
+
+.project .lede { font-size: 1rem; color: var(--ink-dim); margin-bottom: 20px; }
+
+.spec-list { display: grid; gap: 8px; margin-bottom: 24px; }
+.spec-list div { display: grid; grid-template-columns: 130px 1fr; gap: 12px; font-size: 0.88rem; }
+.spec-list dt { font-family: var(--f-mono); color: var(--ink-faint); font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em; padding-top: 2px; }
+.spec-list dd { margin: 0; color: var(--ink); }
+.spec-list dd .mono { color: var(--teal); }
+
+.project-links { display: flex; gap: 18px; font-family: var(--f-mono); font-size: 0.82rem; flex-wrap: wrap; }
+.project-links a { display: inline-flex; align-items: center; gap: 6px; color: var(--ink-dim); border-bottom: 1px solid transparent; }
+.project-links a:hover { color: var(--teal); border-color: var(--teal); }
+
+.project-media { display: grid; gap: 14px; }
+.media-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--panel);
+}
+.media-card img { display: block; width: 100%; height: auto; }
+.media-card figcaption {
+  padding: 9px 14px;
+  font-family: var(--f-mono);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+.media-card figcaption .tag { color: var(--rust); }
+.media-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+.finding {
+  margin-top: 6px;
+  border-left: 2px solid var(--amber);
+  padding: 10px 14px;
+  background: color-mix(in srgb, var(--amber) 6%, transparent);
+  font-size: 0.86rem;
+  color: var(--ink-dim);
+}
+.finding b { color: var(--amber); font-family: var(--f-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 4px; }
+
+@media (max-width: 900px) {
+  .project { grid-template-columns: 1fr; }
+  .media-grid-2 { grid-template-columns: 1fr; }
+}
+
+/* ==========================================================================
+   BENCH NOTES (honest-findings strip)
+   ========================================================================== */
+.bench { background: var(--bg-alt); }
+.bench-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.bench-card {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 22px;
+  border-radius: var(--radius);
+}
+.bench-card .src {
+  font-family: var(--f-mono);
+  font-size: 0.7rem;
+  color: var(--teal);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+  display: block;
+}
+.bench-card p { font-size: 0.9rem; color: var(--ink-dim); }
+.bench-card p:first-of-type { color: var(--ink); }
+
+@media (max-width: 900px) {
+  .bench-grid { grid-template-columns: 1fr; }
+}
+
+/* ==========================================================================
+   CONTACT / FOOTER
+   ========================================================================== */
+.contact { text-align: left; }
+.contact h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); max-width: 16ch; margin-bottom: 18px; }
+.contact-row { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
+
+footer {
+  border-top: 1px solid var(--line);
+  padding: 28px 0;
+  font-family: var(--f-mono);
+  font-size: 0.76rem;
+  color: var(--ink-faint);
+}
+footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+
+/* ==========================================================================
+   SCROLL REVEAL
+   ========================================================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
