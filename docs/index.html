@@ -13,7 +13,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230F1416'/%3E%3Cpath d='M2 20 L8 20 L11 8 L16 26 L19 14 L22 20 L30 20' stroke='%233C9CAA' stroke-width='2' fill='none'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -34,7 +34,7 @@
   </div>
 </nav>
 
-<header class="hero">
+<header class="hero dark-chapter">
   <div class="wrap">
     <div class="hero-copy">
     <div class="hero-eyebrow">Telecommunications Engineering — RF / SDR / Satellite Comms</div>
@@ -111,10 +111,10 @@
         <p style="max-width:52ch;font-size:1rem;">Universidad de Granada. These four projects are personal, self-funded, and built on nights/weekends — which is also why the fabrication stage is the current bottleneck, not a secret.</p>
       </div>
       <div class="stat-strip reveal">
-        <div class="stat"><span class="n">4</span><span class="l">projects, one repo</span></div>
-        <div class="stat"><span class="n">3</span><span class="l">antennas simulated in NEC2</span></div>
-        <div class="stat"><span class="n">137M–2.4G</span><span class="l">Hz span covered</span></div>
-        <div class="stat"><span class="n">0</span><span class="l">hours on a NanoVNA — yet</span></div>
+        <div class="stat corner-sq-host"><span class="n">4</span><span class="l">projects, one repo</span></div>
+        <div class="stat corner-sq-host"><span class="n">3</span><span class="l">antennas simulated in NEC2</span></div>
+        <div class="stat corner-sq-host"><span class="n">137M–2.4G</span><span class="l">Hz span covered</span></div>
+        <div class="stat corner-sq-host"><span class="n">0</span><span class="l">hours on a NanoVNA — yet</span></div>
       </div>
     </div>
   </div>
@@ -238,7 +238,7 @@
             <span><b>AZ/EL</b> commanded via rotctld</span>
           </div>
         </div>
-        <figure class="media-card">
+        <figure class="media-card tilt-3d corner-sq-host">
           <img class="reveal-img" src="assets/img/proj03-rotor-cad.png" alt="Parametric OpenSCAD model of the azimuth/elevation rotor, with home-switch mounts" loading="lazy">
           <figcaption><span>Az/El rotor — validated mesh</span><span class="tag">CAD</span></figcaption>
         </figure>
@@ -288,7 +288,7 @@
       </div>
 
       <div class="vna-grid">
-        <div class="vna-card">
+        <div class="vna-card corner-sq-host">
           <div class="vna-screen"><img class="reveal-img" src="assets/img/proj02-yagi-vswr.png" alt="Simulated VSWR curve of the 868 MHz Yagi" loading="lazy"></div>
           <div class="vna-readout">
             <div class="name">Yagi-Uda · 3 el.</div>
@@ -300,7 +300,7 @@
             </dl>
           </div>
         </div>
-        <div class="vna-card">
+        <div class="vna-card corner-sq-host">
           <div class="vna-screen"><img class="reveal-img" src="assets/img/proj02-biquad-pattern.png" alt="Simulated directional pattern of the biquad with reflector" loading="lazy"></div>
           <div class="vna-readout">
             <div class="name">Biquad + reflector</div>
@@ -313,7 +313,7 @@
             <div class="vna-flag">⚠ F/B lower than forum folklore suggests — mesh-convergence checked, not a sim artifact</div>
           </div>
         </div>
-        <div class="vna-card">
+        <div class="vna-card corner-sq-host">
           <div class="vna-screen"><img class="reveal-img" src="assets/img/proj02-helix-pattern.png" alt="Simulated narrow on-axis pattern of the 10-turn helix" loading="lazy"></div>
           <div class="vna-readout">
             <div class="name">Axial helix · 10 turns</div>
@@ -362,11 +362,11 @@
       </div>
 
       <div class="media-grid-2">
-        <figure class="media-card">
+        <figure class="media-card tilt-3d corner-sq-host">
           <img class="reveal-img" src="assets/img/proj01-coverage.png" alt="Polar plot of ADS-B detections by bearing, range, and altitude, from synthetic demo data" loading="lazy">
           <figcaption><span>Coverage — demo dataset</span><span class="tag">DATA</span></figcaption>
         </figure>
-        <figure class="media-card">
+        <figure class="media-card tilt-3d corner-sq-host">
           <img class="reveal-img" src="assets/img/proj01-mount.png" alt="3D-printable mount for the ground-plane antenna" loading="lazy">
           <figcaption><span>Ground-plane mount</span><span class="tag">CAD</span></figcaption>
         </figure>
@@ -435,12 +435,12 @@
   </div>
   <div class="filmstrip reveal">
     <div class="filmstrip-track">
-      <div class="film-card"><img class="reveal-img" src="assets/img/proj02-yagi-cad.png" alt="Yagi boom and element-holder CAD, single validated mesh" loading="lazy"><div class="cap"><b>Yagi boom</b><span>CAD</span></div></div>
-      <div class="film-card"><img class="reveal-img" src="assets/img/proj02-yagi-tradeoff.png" alt="Yagi element spacing trade-off sweep: gain, F/B and VSWR vs spacing" loading="lazy"><div class="cap"><b>Spacing sweep</b><span>NEC2</span></div></div>
-      <div class="film-card"><img class="reveal-img" src="assets/img/proj02-biquad-cad.png" alt="Biquad loop support with feed block, validated mesh" loading="lazy"><div class="cap"><b>Biquad posts</b><span>CAD</span></div></div>
-      <div class="film-card"><img class="reveal-img" src="assets/img/proj02-biquad-tradeoff.png" alt="Biquad reflector distance sweep: gain, F/B and VSWR vs distance" loading="lazy"><div class="cap"><b>Reflector sweep</b><span>NEC2</span></div></div>
-      <div class="film-card"><img class="reveal-img" src="assets/img/proj02-helix-cad.png" alt="Helix guide-rod support, validated mesh" loading="lazy"><div class="cap"><b>Helix guides</b><span>CAD</span></div></div>
-      <div class="film-card"><img class="reveal-img" src="assets/img/proj03-elevation-cad.png" alt="Elevation shaft-to-mast coupler CAD" loading="lazy"><div class="cap"><b>Shaft coupler</b><span>CAD</span></div></div>
+      <div class="film-card tilt-3d corner-sq-host"><img class="reveal-img" src="assets/img/proj02-yagi-cad.png" alt="Yagi boom and element-holder CAD, single validated mesh" loading="lazy"><div class="cap"><b>Yagi boom</b><span>CAD</span></div></div>
+      <div class="film-card tilt-3d corner-sq-host"><img class="reveal-img" src="assets/img/proj02-yagi-tradeoff.png" alt="Yagi element spacing trade-off sweep: gain, F/B and VSWR vs spacing" loading="lazy"><div class="cap"><b>Spacing sweep</b><span>NEC2</span></div></div>
+      <div class="film-card tilt-3d corner-sq-host"><img class="reveal-img" src="assets/img/proj02-biquad-cad.png" alt="Biquad loop support with feed block, validated mesh" loading="lazy"><div class="cap"><b>Biquad posts</b><span>CAD</span></div></div>
+      <div class="film-card tilt-3d corner-sq-host"><img class="reveal-img" src="assets/img/proj02-biquad-tradeoff.png" alt="Biquad reflector distance sweep: gain, F/B and VSWR vs distance" loading="lazy"><div class="cap"><b>Reflector sweep</b><span>NEC2</span></div></div>
+      <div class="film-card tilt-3d corner-sq-host"><img class="reveal-img" src="assets/img/proj02-helix-cad.png" alt="Helix guide-rod support, validated mesh" loading="lazy"><div class="cap"><b>Helix guides</b><span>CAD</span></div></div>
+      <div class="film-card tilt-3d corner-sq-host"><img class="reveal-img" src="assets/img/proj03-elevation-cad.png" alt="Elevation shaft-to-mast coupler CAD" loading="lazy"><div class="cap"><b>Shaft coupler</b><span>CAD</span></div></div>
     </div>
   </div>
 </section>
@@ -453,17 +453,17 @@
       <p>A portfolio only proves something if the failures are in it too. Three examples from this repository's own commit history.</p>
     </div>
     <div class="bench-grid">
-      <div class="bench-card reveal">
+      <div class="bench-card reveal corner-sq-host">
         <span class="src">Project 02 — biquad reflector</span>
         <p>Simulated front-to-back ratio: ~4 dB.</p>
         <p>Home-built biquads have a reputation for much higher F/B in forum folklore. A mesh-convergence check (229 → 1067 wires) ruled out a simulation artifact — this looks like a real property of the geometry, not a bug. Left as an open question for the NanoVNA, not smoothed into a nicer number.</p>
       </div>
-      <div class="bench-card reveal">
+      <div class="bench-card reveal corner-sq-host">
         <span class="src">Project 02 — helical antenna</span>
         <p>PyNEC's built-in helix generator silently produced zero wires.</p>
         <p>Traced to a known, already-reported upstream bug rather than assumed to be a modeling mistake. Worked around by building the helix as a validated polyline of straight segments — the standard fallback technique, not an improvisation.</p>
       </div>
-      <div class="bench-card reveal">
+      <div class="bench-card reveal corner-sq-host">
         <span class="src">Project 03 — rotor mechanics</span>
         <p>Two 3D-printable parts looked correct in the CAD viewer and still failed.</p>
         <p>Rendering every part to an actual mesh and checking real face connectivity — not just "no compile errors" — caught a fork that would've printed as two disconnected halves, and a shaft coupler that was hollow on both sides of its own joint.</p>
@@ -497,7 +497,7 @@
   </div>
 </section>
 
-<footer>
+<footer class="dark-chapter">
   <div class="wrap">
     <span>© 2026 Álvaro González Jiménez — MIT licensed</span>
     <span>Site source: <code class="mono">/docs</code> · No frameworks, no build step</span>
