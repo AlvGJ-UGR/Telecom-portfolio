@@ -35,6 +35,13 @@
 </nav>
 
 <header class="hero dark-chapter">
+  <div class="hero-particles" aria-hidden="true">
+    <span style="top:20%;left:15%;animation-delay:0s;"></span>
+    <span style="top:60%;left:8%;animation-delay:3s;"></span>
+    <span style="top:35%;left:32%;animation-delay:6s;"></span>
+    <span style="top:75%;left:22%;animation-delay:2s;"></span>
+    <span style="top:15%;left:44%;animation-delay:8s;"></span>
+  </div>
   <div class="wrap">
     <div class="hero-copy">
     <div class="hero-eyebrow">Telecommunications Engineering — RF / SDR / Satellite Comms</div>
@@ -67,7 +74,7 @@
           <line x1="0" y1="188" x2="720" y2="188"/>
         </g>
         <path class="scope-fill" d="M0,188 L0,175 L40,178 L80,170 L120,150 L150,80 L170,150 L200,172 L260,168 L300,176 L330,178 L360,60 L390,178 L430,174 L470,150 L520,20 L560,150 L600,175 L640,172 L680,178 L720,176 L720,220 L0,220 Z"/>
-        <path class="scope-trace" d="M0,188 L0,175 L40,178 L80,170 L120,150 L150,80 L170,150 L200,172 L260,168 L300,176 L330,178 L360,60 L390,178 L430,174 L470,150 L520,20 L560,150 L600,175 L640,172 L680,178 L720,176"/>
+        <path class="scope-trace draw-line" d="M0,188 L0,175 L40,178 L80,170 L120,150 L150,80 L170,150 L200,172 L260,168 L300,176 L330,178 L360,60 L390,178 L430,174 L470,150 L520,20 L560,150 L600,175 L640,172 L680,178 L720,176"/>
 
         <g class="scope-marker">
           <line x1="150" y1="80" x2="150" y2="200" stroke="#2A3538"/>
@@ -111,10 +118,10 @@
         <p style="max-width:52ch;font-size:1rem;">Universidad de Granada. These four projects are personal, self-funded, and built on nights/weekends — which is also why the fabrication stage is the current bottleneck, not a secret.</p>
       </div>
       <div class="stat-strip reveal">
-        <div class="stat corner-sq-host"><span class="n">4</span><span class="l">projects, one repo</span></div>
-        <div class="stat corner-sq-host"><span class="n">3</span><span class="l">antennas simulated in NEC2</span></div>
+        <div class="stat corner-sq-host"><span class="n" data-count="4">0</span><span class="l">projects, one repo</span></div>
+        <div class="stat corner-sq-host"><span class="n" data-count="3">0</span><span class="l">antennas simulated in NEC2</span></div>
         <div class="stat corner-sq-host"><span class="n">137M–2.4G</span><span class="l">Hz span covered</span></div>
-        <div class="stat corner-sq-host"><span class="n">0</span><span class="l">hours on a NanoVNA — yet</span></div>
+        <div class="stat corner-sq-host"><span class="n" data-count="0">0</span><span class="l">hours on a NanoVNA — yet</span></div>
       </div>
     </div>
   </div>
@@ -217,6 +224,31 @@
           <b>Caught before it shipped</b>
           Rendering every part to an actual mesh — not just "no compile errors" — found the elevation fork printing as two disconnected halves, and a shaft coupler hollow on both sides of its own joint. Both fixed and re-verified.
         </div>
+
+        <details class="case-study reveal">
+          <summary>Full engineering case study</summary>
+          <div class="case-study-body">
+            <div class="cs-grid">
+              <div class="cs-block"><h5>Objective</h5><p>Automated 2-axis tracking of NOAA/Meteor-M2 passes, motorizing a QFH antenna to hold lock through an entire pass rather than a fixed apex-only view.</p></div>
+              <div class="cs-block"><h5>Engineering problem</h5><p>Cheap stepper motors have no positional memory. Without homing, "software precision" of 0.088°/step is meaningless the moment the system loses power.</p></div>
+              <div class="cs-block"><h5>Architecture</h5><p>Gpredict → rotctld protocol → rotctld_bridge.py → serial → Arduino firmware → steppers, with a parallel Skyfield-based standalone tracker as a GUI-free alternative.</p></div>
+              <div class="cs-block"><h5>Hardware</h5><p>2× 28BYJ-48 + ULN2003 driver, limit microswitches on both axes, Arduino/ESP32, QFH in copper wire/tube over a PVC mast.</p></div>
+              <div class="cs-block"><h5>Software</h5><p>Python (Skyfield, pyserial), Arduino C++, Hamlib rotctld protocol, John Coppens' QFH calculator methodology.</p></div>
+              <div class="cs-block"><h5>Methodology</h5><p>Delegate orbital mechanics to Gpredict/Skyfield rather than reimplementing SGP4 — effort goes into the rotor and the protocol bridge, the parts with real differential value.</p></div>
+              <div class="cs-block"><h5>Simulations</h5><p>None orbital (delegated) — mechanical validation instead: every printable part rendered to STL and checked for real face connectivity with trimesh.</p></div>
+              <div class="cs-block pending"><h5>Fabrication process</h5><p>Not started — awaiting printer, motors, and microswitches. All parts pre-validated and ready to print.</p></div>
+              <div class="cs-block pending"><h5>Measurements</h5><p>Not started — real tracking error (commanded vs. reported Az/El) can only be measured with the physical rotor.</p></div>
+              <div class="cs-block"><h5>Results</h5><p>Firmware homing logic tested with a mocked serial port (success/timeout/parse cases, all passing). Orbital tracker validated against Skyfield's reference TLE and a real NOAA-19 TLE.</p></div>
+              <div class="cs-block"><h5>Limitations</h5><p>Firmware hand-reviewed, not compiler-verified (blocked by a sandboxed network domain). Elevation homing needs field calibration by design, not a defect.</p></div>
+              <div class="cs-block"><h5>Future improvements</h5><p>Compile-check the firmware on real Arduino tooling; validate rotctld_bridge.py against real Gpredict; measure Doppler-compensation accuracy on a live pass.</p></div>
+            </div>
+            <div class="cs-gallery">
+              <img src="assets/img/proj03-rotor-cad.png" alt="Az/El rotor CAD" loading="lazy">
+              <img src="assets/img/proj03-elevation-cad.png" alt="Elevation shaft coupler CAD" loading="lazy">
+            </div>
+          </div>
+        </details>
+
         <div class="project-links">
           <a href="https://github.com/AlvGJ-UGR/telecom-portfolio/tree/main/projects/03-satellite-ground-station" target="_blank" rel="noopener">Project folder ↗</a>
           <a href="https://github.com/AlvGJ-UGR/telecom-portfolio/blob/main/projects/03-satellite-ground-station/rotor/rotor_design.md" target="_blank" rel="noopener">Rotor design notes ↗</a>
@@ -327,6 +359,42 @@
         </div>
       </div>
 
+      <div class="waveviz reveal" style="margin-top:24px;">
+        <svg viewBox="0 0 300 150" role="img" aria-label="Illustration of electromagnetic wave propagation from a driven element">
+          <line x1="30" y1="55" x2="30" y2="95" stroke="var(--text)" stroke-width="3"/>
+          <circle class="wave-ring" cx="30" cy="75" r="6"/>
+          <circle class="wave-ring r2" cx="30" cy="75" r="6"/>
+          <circle class="wave-ring r3" cx="30" cy="75" r="6"/>
+        </svg>
+        <div class="waveviz-foot"><span>Driven element radiating (illustrative)</span><span><b>far field</b> ∝ 1/r</span></div>
+      </div>
+
+      <details class="case-study reveal">
+        <summary>Full engineering case study</summary>
+        <div class="case-study-body">
+          <div class="cs-grid">
+            <div class="cs-block"><h5>Objective</h5><p>Design, simulate, and (pending hardware) measure three ISM-band antennas end to end, using the same NEC2-validated methodology each time.</p></div>
+            <div class="cs-block"><h5>Engineering problem</h5><p>Closed-form antenna formulas are approximations; the real question is how far reality (feed impedance, F/B, gain) drifts from the textbook once actual geometry and materials are simulated — and by how much simulation itself can be trusted.</p></div>
+            <div class="cs-block"><h5>Architecture</h5><p>Wire-segment NEC2 models (PyNEC) → parametric OpenSCAD supports → mesh-validated STL. Reflectors modelled as either wire-grid (biquad) or infinite ground plane (helix), chosen per antenna type.</p></div>
+            <div class="cs-block"><h5>Hardware</h5><p>2mm / 1mm copper wire, PETG 3D-printed supports, M2/M3 hardware, NanoVNA for eventual characterization.</p></div>
+            <div class="cs-block"><h5>Software</h5><p>Python + PyNEC (nec2++), NumPy/Matplotlib for post-processing, OpenSCAD for geometry, trimesh for mesh-connectivity verification.</p></div>
+            <div class="cs-block"><h5>Methodology</h5><p>Validate engine against a known reference (half-wave dipole) → simulate starting geometry from classical rules → retune against the simulator's own impedance, not the textbook → sweep one real design parameter → document the trade-off.</p></div>
+            <div class="cs-block"><h5>Simulations</h5><p>Yagi spacing sweep, biquad reflector distance sweep + mesh-convergence check, helix C/λ sweep + gap-matching attempt — all with raw JSON results in <span class="mono">sim/</span>.</p></div>
+            <div class="cs-block pending"><h5>Fabrication process</h5><p>Not started — awaiting a 3D printer and copper wire stock. Supports are pre-validated and ready to print.</p></div>
+            <div class="cs-block pending"><h5>Measurements</h5><p>Not started — awaiting a NanoVNA. This is the single biggest gap between this case study and a finished one.</p></div>
+            <div class="cs-block"><h5>Results (simulated)</h5><p>Yagi 8.3 dBi / VSWR 1.77 · Biquad 8.2 dBi / VSWR 1.46 / F/B 4.0 dB · Helix 12.5 dBi on-axis, impedance match unresolved.</p></div>
+            <div class="cs-block"><h5>Limitations</h5><p>Biquad F/B lower than community folklore (mesh-convergence checked, not explained). Helix reactance doesn't match Kraus's simplified feed model. Both flagged, not hidden.</p></div>
+            <div class="cs-block"><h5>Future improvements</h5><p>Kraus flat-strip or quarter-wave matching section for the helix (needs patch/plate NEC2 modelling); independent reflector/director length optimization for the Yagi.</p></div>
+          </div>
+          <div class="cs-gallery">
+            <img src="assets/img/proj02-yagi-vswr.png" alt="Yagi VSWR curve" loading="lazy">
+            <img src="assets/img/proj02-yagi-tradeoff.png" alt="Yagi spacing sweep" loading="lazy">
+            <img src="assets/img/proj02-biquad-tradeoff.png" alt="Biquad reflector sweep" loading="lazy">
+            <img src="assets/img/proj02-helix-cad.png" alt="Helix guide-rod CAD" loading="lazy">
+          </div>
+        </div>
+      </details>
+
       <div class="project-links">
         <a href="https://github.com/AlvGJ-UGR/telecom-portfolio/tree/main/projects/02-antenna-design-vna" target="_blank" rel="noopener">Project folder ↗</a>
         <a href="https://github.com/AlvGJ-UGR/telecom-portfolio/blob/main/projects/02-antenna-design-vna/antenna/yagi_design.md" target="_blank" rel="noopener">Yagi write-up ↗</a>
@@ -371,6 +439,32 @@
           <figcaption><span>Ground-plane mount</span><span class="tag">CAD</span></figcaption>
         </figure>
       </div>
+
+      <div class="waterfall-card reveal" style="margin-top:24px;">
+        <canvas id="waterfallCanvas" width="640" height="160" role="img" aria-label="Synthetic SDR waterfall display around 1090 MHz"></canvas>
+        <div class="waterfall-axis"><span>1088.8 MHz</span><span>1090.0 MHz</span><span>1091.2 MHz</span></div>
+        <div class="trackviz-foot" style="margin-top:8px;"><span>Synthetic waterfall (illustrative, same shape as spectrum_analyzer.py's demo mode)</span><span><b>Δf</b> 2.4 MSps</span></div>
+      </div>
+
+      <details class="case-study reveal">
+        <summary>Full engineering case study</summary>
+        <div class="case-study-body">
+          <div class="cs-grid">
+            <div class="cs-block"><h5>Objective</h5><p>Full RF→data pipeline for 1090 MHz Mode S/ADS-B: custom antenna, live spectrum, decoded aircraft, geolocated and plotted.</p></div>
+            <div class="cs-block"><h5>Engineering problem</h5><p>Validate a complete software chain before the hardware exists, so the antenna is the only unverified link once it's built — not the whole pipeline at once.</p></div>
+            <div class="cs-block"><h5>Architecture</h5><p>Ground-plane antenna → RTL-SDR → dump1090 → adsb_logger.py (Haversine geolocation) → coverage_plot.py — see the animated pipeline above.</p></div>
+            <div class="cs-block"><h5>Hardware</h5><p>RTL-SDR Blog v3, 1-1.5mm copper wire ground-plane antenna, SMA panel-mount connector.</p></div>
+            <div class="cs-block"><h5>Software</h5><p>Python, NumPy/SciPy (Welch PSD), Pandas, Matplotlib, dump1090-fa.</p></div>
+            <div class="cs-block"><h5>Methodology</h5><p>Every script ships a <span class="mono">--demo</span> mode generating synthetic IQ/ADS-B data, so the full pipeline is testable before hardware arrives.</p></div>
+            <div class="cs-block pending"><h5>Fabrication process</h5><p>Antenna designed, not yet printed/soldered.</p></div>
+            <div class="cs-block pending"><h5>Measurements</h5><p>No real RF capture yet — everything shown is synthetic/demo data, labelled as such.</p></div>
+            <div class="cs-block pending"><h5>Results</h5><p>Software pipeline validated end-to-end on synthetic data (30 demo detections, max synthetic range 58.7 km). Real capture pending.</p></div>
+            <div class="cs-block"><h5>Limitations</h5><p>No comparison yet against the dongle's stock antenna — the most interesting result of this project is still ahead.</p></div>
+            <div class="cs-block"><h5>Future improvements</h5><p>Real capture session with station coordinates, stock-vs-custom antenna range comparison, multi-hour logging.</p></div>
+          </div>
+        </div>
+      </details>
+
       <div class="project-links">
         <a href="https://github.com/AlvGJ-UGR/telecom-portfolio/tree/main/projects/01-sdr-fundamentals" target="_blank" rel="noopener">Project folder ↗</a>
       </div>
@@ -417,6 +511,25 @@
         <b>Doesn't promise</b>
         Coverage from anywhere on the mountain. LoRa's real-terrain range over a home-built mesh is the actual open research question this project is for — not assumed away.
       </div>
+
+      <details class="case-study reveal">
+        <summary>Full engineering case study</summary>
+        <div class="case-study-body">
+          <div class="cs-grid">
+            <div class="cs-block"><h5>Objective</h5><p>Off-grid GPS tracking and text messaging for group hiking, with occasional bridging to a home internet connection via a directional gateway.</p></div>
+            <div class="cs-block"><h5>Engineering problem</h5><p>LoRa mesh range in real alpine terrain is unknown until measured — the project exists specifically to characterize that, not to assume vendor range figures apply.</p></div>
+            <div class="cs-block"><h5>Architecture</h5><p>Personal tracker node → 2-3 group nodes → gateway node (directional antenna) → MQTT bridge → family app, all on Meshtastic firmware.</p></div>
+            <div class="cs-block pending"><h5>Hardware</h5><p>Generic ESP32 + SX1276/78, band/connector of existing antennas unverified (see assumptions table in the repo) — flagged, not assumed.</p></div>
+            <div class="cs-block"><h5>Software</h5><p>Meshtastic (unmodified firmware), MQTT bridge, companion app — no custom mesh protocol.</p></div>
+            <div class="cs-block"><h5>Methodology</h5><p>Use Meshtastic as-is rather than reimplementing mesh routing; the differential engineering value is in hardware integration and real-terrain characterization, not protocol design.</p></div>
+            <div class="cs-block pending"><h5>Simulations</h5><p>None planned — propagation in mountain terrain is deliberately being measured, not modelled, since terrain models would just defer the real question.</p></div>
+            <div class="cs-block pending"><h5>Fabrication / measurements / results</h5><p>Not started. This project is earliest-stage of the four — design and BOM only.</p></div>
+            <div class="cs-block"><h5>Limitations</h5><p>Explicitly does not promise full-mountain coverage. Antenna band and GPS-mouse hackability are open assumptions pending physical inspection.</p></div>
+            <div class="cs-block"><h5>Future improvements</h5><p>Verify existing antenna bands, confirm connector types, field-test real node-to-node range before committing to the full BOM.</p></div>
+          </div>
+        </div>
+      </details>
+
       <div class="project-links">
         <a href="https://github.com/AlvGJ-UGR/telecom-portfolio/tree/main/projects/04-alpine-mesh-tracking" target="_blank" rel="noopener">Project folder ↗</a>
       </div>
