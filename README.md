@@ -4,7 +4,7 @@
 
 > Proyectos prácticos de RF, antenas, SDR y sistemas de comunicación, diseñados, fabricados y medidos de principio a fin.
 
-**🌐 [Ver la web del portfolio →](https://alvgj-ugr.github.io/telecom-portfolio/)** · 📋 [Estado y próxima tarea](PROJECT_STATE.md) · 🗺️ [Roadmap detallado](docs/roadmap.md)
+**🌐 [Ver la web del portfolio →](https://alvgj-ugr.github.io/Telecom-portfolio/)** · 📋 [Estado y próxima tarea](PROJECT_STATE.md) · 🗺️ [Roadmap detallado](docs/roadmap.md)
 
 <p>
   <img src="projects/01-sdr-fundamentals/assets/coverage_demo.png" width="280" alt="Cobertura ADS-B (demo)">
