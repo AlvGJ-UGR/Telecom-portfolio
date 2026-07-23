@@ -1,14 +1,14 @@
 # 01 — Fundamentos SDR: Espectro en vivo + ADS-B
 
-**Estado:** 🟡 En progreso — código y diseño de antena completos, pendiente de captura con hardware real
+**Estado:** 🟡 En progreso — código y diseño de antena completos y verificados en modo demo; pendiente captura con hardware real (RTL-SDR aún no adquirido)
 
 ## Objetivo
 
-Construir un sistema completo de recepción RF: desde una antena diseñada y fabricada a medida, hasta la visualización de datos reales de tráfico aéreo, pasando por análisis de espectro en tiempo real. Todo el pipeline de software está terminado y probado; solo falta la captura final con el RTL-SDR físico.
+Construir un sistema completo de recepción RF: antena diseñada y fabricada a medida → captura SDR → decodificación → geolocalización → visualización. Todo el pipeline de software está terminado, probado y con datos reales de ejemplo; solo falta la captura final con el RTL-SDR físico.
 
 ## Por qué importa
 
-Es la base del resto del portfolio: SDR es la herramienta central para los proyectos de satélites y análisis de espectro que vienen después. Además, ADS-B es uno de los pocos protocolos de comunicaciones aeronáuticas reales que se pueden recibir y decodificar legalmente con equipo casero, lo que permite validar todo el pipeline (RF → demodulación → geolocalización → visualización) con tráfico real y verificable.
+Es la base del resto del portfolio: SDR es la herramienta central de los proyectos de satélites (03) y antenas (02) que vienen después. ADS-B es además uno de los pocos protocolos de comunicaciones aeronáuticas reales que se pueden recibir y decodificar legalmente con equipo casero, lo que permite validar todo el pipeline (RF → demodulación → geolocalización → visualización) con tráfico real y verificable.
 
 ## Arquitectura del sistema
 
@@ -24,12 +24,17 @@ flowchart LR
 
 ## Diseño de antena
 
-Ground-plane de cuarto de onda, diseñada específicamente para 1090 MHz (frecuencia de emisión ADS-B). Cálculo completo de dimensiones, justificación de la elección de topología, y modelo 3D paramétrico en OpenSCAD:
+Ground-plane de cuarto de onda para 1090 MHz — elegida sobre un colineal de fase por tener menor acumulación de error de fabricación y por ser el diseño de referencia de la comunidad RTL-SDR/ADS-B, lo que permite contrastar resultados contra referencias conocidas.
 
-- 📐 [`antenna/antenna_design.md`](antenna/antenna_design.md) — cálculos y justificación de diseño
-- 🖨️ [`antenna/mount.scad`](antenna/mount.scad) — modelo paramétrico (OpenSCAD)
+| Elemento | Cantidad | Longitud | Material |
+|---|---|---|---|
+| Radiador vertical | 1 | 65.3 mm | Hilo de cobre rígido 1–1.5 mm Ø |
+| Radiales (45° bajo horizontal) | 4 | 68.6 mm | Hilo de cobre rígido 1–1.5 mm Ø |
+| Conector | 1 | — | SMA hembra panel-mount |
 
-<img src="antenna/mount_preview.png" width="500" alt="Render del soporte de antena">
+📐 Cálculos y justificación completa: [`antenna/antenna_design.md`](antenna/antenna_design.md) · 🖨️ Modelo paramétrico: [`antenna/mount.scad`](antenna/mount.scad)
+
+<img src="antenna/mount_preview.png" width="440" alt="Render del soporte de antena ground-plane, generado desde mount.scad">
 
 ## Código
 
@@ -39,35 +44,37 @@ Ground-plane de cuarto de onda, diseñada específicamente para 1090 MHz (frecue
 | [`src/adsb_logger.py`](src/adsb_logger.py) | Consulta `dump1090`, calcula distancia (Haversine) y rumbo real desde la estación, registra en CSV |
 | [`src/coverage_plot.py`](src/coverage_plot.py) | Gráfico polar de cobertura (rumbo vs. alcance, coloreado por altitud) a partir del CSV |
 
-Los tres scripts incluyen un **modo `--demo`** que genera datos sintéticos (IQ simulado / detecciones ADS-B plausibles), lo que permite probar y validar todo el pipeline de software antes de tener el hardware conectado — la evidencia de que el código funciona end-to-end está en `assets/`.
+Los tres scripts incluyen un **modo `--demo`** (datos sintéticos deterministas, semilla fija) que permite probar y validar todo el pipeline sin tener el hardware conectado. Las gráficas de abajo son la salida real de ese modo demo, generada en esta sesión — no capturas de pantalla ni mockups.
 
 Guía completa de instalación (drivers, udev, dump1090, entorno Python): [`docs/setup_guide.md`](docs/setup_guide.md)
 
 ## Resultados
 
-> ⚠️ Las gráficas de abajo son del **modo demo** (datos sintéticos), generadas para validar el pipeline de software. Se reemplazarán por capturas reales en cuanto esté montada la antena y funcionando el RTL-SDR.
+> ⚠️ Datos **sintéticos** (modo `--demo`), usados para validar que el software funciona de extremo a extremo antes de tener el RTL-SDR físico. Se sustituirán por captura real en cuanto llegue el hardware.
 
-**Espectro (demo):**
+**Espectro (demo — tono simulado a 1090.15 MHz sobre suelo de ruido):**
 
-<img src="assets/spectrum_demo.png" width="600" alt="Espectro demo">
+<img src="assets/spectrum_demo.png" width="640" alt="Espectro PSD demo centrado en 1090 MHz">
 
-**Cobertura ADS-B (demo — geometría real, tráfico sintético):**
+**Cobertura ADS-B (demo — geometría real vía Haversine, tráfico sintético, 30 detecciones):**
 
-<img src="assets/coverage_demo.png" width="500" alt="Cobertura demo">
+<img src="assets/coverage_demo.png" width="480" alt="Cobertura polar demo: rumbo, alcance y altitud">
 
-### Pendiente con hardware real
+### Checklist
 
-- [ ] Imprimir y soldar la antena según `antenna/mount.scad` y `antenna/antenna_design.md`
-- [ ] Captura de espectro real en 1090 MHz, comparar suelo de ruido con/sin antena casera vs. la antena stock
-- [ ] Sesión de logging ADS-B de varias horas con coordenadas reales de la estación
-- [ ] Gráfico de cobertura real, alcance máximo medido vs. horizonte de radio teórico (fórmula incluida en `coverage_plot.py`)
-- [ ] Tabla comparativa: antena casera vs. antena stock del dongle (alcance, nº de aviones detectados/hora)
+- [x] Diseñar y justificar la antena ground-plane (`antenna_design.md`)
+- [x] Modelo 3D paramétrico del soporte, renderizado y verificado
+- [x] Pipeline de software completo, validado en modo demo (3 scripts + datos de ejemplo)
+- [x] Guía de instalación completa y reproducible
+- [ ] Adquirir el RTL-SDR Blog v3 (pendiente, ver `PROJECT_STATE.md`)
+- [ ] Imprimir y soldar la antena
+- [ ] Captura real de espectro y logging ADS-B con coordenadas reales
+- [ ] Gráfico de cobertura real y comparación antena casera vs. antena stock del dongle
 
 ## Habilidades demostradas
 
 - Diseño de antenas desde primeros principios (cálculo de λ/4, adaptación de impedancia por ángulo de radiales)
-- Modelado paramétrico 3D (OpenSCAD) para fabricación
-- Configuración y uso de SDR (RTL-SDR, procesamiento de IQ)
+- Modelado paramétrico 3D (OpenSCAD) para fabricación, con verificación geométrica del render
 - Procesamiento de señal: PSD mediante método de Welch
 - Geometría esférica aplicada (Haversine, bearing) para geolocalización
 - Diseño de software con modo de prueba sin hardware (testability, buena práctica de ingeniería)
