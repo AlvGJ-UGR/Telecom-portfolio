@@ -4,60 +4,78 @@
 
 > Proyectos prácticos de RF, antenas, SDR y sistemas de comunicación, diseñados, fabricados y medidos de principio a fin.
 
-**🌐 [Ver la web del portfolio →](https://alvgj-ugr.github.io/Telecom-portfolio/)** · 📋 [Estado y próxima tarea](PROJECT_STATE.md) · 🗺️ [Roadmap detallado](docs/roadmap.md)
-
-<p>
-  <img src="projects/01-sdr-fundamentals/assets/coverage_demo.png" width="280" alt="Cobertura ADS-B (demo)">
-  <img src="projects/02-antenna-design-vna/assets/biquad_reflector_pattern.png" width="280" alt="Patrón simulado de la biquad con reflector">
-  <img src="projects/03-satellite-ground-station/rotor/rotor_preview.png" width="280" alt="Rotor Az/El del Proyecto 03">
-</p>
-
-## Cómo leer este repositorio
-
-1. **¿Solo quieres una visión general?** → la [web del portfolio](https://alvgj-ugr.github.io/telecom-portfolio/) resume los 4 proyectos con gráficas y CAD.
-2. **¿Quieres el detalle técnico?** → cada carpeta de `projects/` tiene su propio README con metodología, simulaciones y datos.
-3. **¿Quieres saber en qué se está trabajando ahora?** → [`PROJECT_STATE.md`](PROJECT_STATE.md) (estado real, sesión a sesión) y [`MASTER_PLAN.md`](MASTER_PLAN.md) (plan por fases).
+---
 
 ## Sobre mí
 
-Estudiante de Ingeniería de Telecomunicaciones (Universidad de Granada). Este repositorio documenta proyectos personales de RF, diseño de antenas, SDR y sistemas de comunicación embebidos, construidos en tiempo libre con equipo propio: impresora 3D, soldador, dongle SDR y un NanoVNA.
+Soy estudiante de Ingeniería de Telecomunicaciones. Este repositorio documenta una serie de proyectos personales enfocados en RF, diseño de antenas, radio definida por software (SDR) y sistemas de comunicación embebidos, construidos durante mi tiempo libre con equipo propio: impresora 3D, soldador, un dongle SDR y un analizador de redes vectorial (NanoVNA).
 
-Cada proyecto sigue el mismo ciclo de ingeniería: **diseño → simulación → fabricación → medición → iteración**, con scripts, datos y fuentes CAD reales en el propio repo — no solo capturas de pantalla.
+El objetivo no es solo "hacer que funcione", sino aplicar el proceso de ingeniería completo en cada proyecto: **diseño → simulación → fabricación → medición → iteración → documentación**, con datos y gráficas reales, no solo capturas de pantalla.
 
-## 🧰 Herramientas y equipo
+---
+
+## 🧰 Stack de herramientas y equipo
 
 | Categoría | Herramientas |
 |---|---|
 | RF / Medición | RTL-SDR Blog v3, NanoVNA |
 | Fabricación | Impresora 3D (PLA/PETG), estación de soldadura |
-| Software | GNU Radio, SDR++/SDR#, KiCad, 4nec2 / PyNEC, Python (NumPy/SciPy/Matplotlib) |
-| Embebido | ESP32, Arduino, módulos LoRa SX1276/78 |
-| Protocolos | ADS-B, LoRa (Meshtastic), APT/LRPT, MQTT, rotctld/Hamlib |
+| Software | GNU Radio, SDR++/SDR#, KiCad, 4nec2, Python (NumPy/SciPy/Matplotlib) |
+| Embebido | ESP32, módulos LoRa SX1276/78 |
+| Protocolos estudiados | ADS-B, LoRa (Meshtastic), APT/LRPT (satélites meteorológicos), MQTT, rotctld/Hamlib |
+
+---
 
 ## 📂 Proyectos
 
-| # | Proyecto | Estado | Frecuencia | Lo más destacable |
+| # | Proyecto | Estado | Descripción breve | Habilidades clave |
 |---|---|---|---|---|
-| 01 | [Fundamentos SDR: Espectro + ADS-B](projects/01-sdr-fundamentals/) | 🟡 En progreso | 1090 MHz | Pipeline completo validado con datos reales de ejemplo; falta el RTL-SDR |
-| 02 | [Diseño de antenas + NanoVNA](projects/02-antenna-design-vna/) | 🟡 En progreso | 868 MHz / 2.4 GHz | 3 antenas (Yagi/biquad/hélice) simuladas en NEC2 y con CAD validado geométricamente |
-| 03 | [Estación terrena de satélites](projects/03-satellite-ground-station/) | 🟡 En progreso — prioritario | 137 MHz | Rotor Az/El con homing real + cliente de seguimiento standalone (Skyfield) |
-| 04 | [Red LoRa/Meshtastic alpina](projects/04-alpine-mesh-tracking/) | 🔵 Planeado | 868 MHz | Diseño y asunciones explícitas, pendiente de verificación física |
+| 01 | [Fundamentos SDR: Espectro + ADS-B](projects/01-sdr-fundamentals/) | 🟡 En progreso | Analizador de espectro en vivo y rastreo de aviones vía ADS-B (1090 MHz) con antena ground-plane casera | SDR, modulación digital, RF básica |
+| 02 | [Diseño y medición de antenas con VNA](projects/02-antenna-design-vna/) | 🔵 Planeado | Diseño, impresión 3D y caracterización real (S11, ROE, ancho de banda) de antenas Yagi/biquad/helicoidal | Diseño de antenas, medición RF, simulación vs. realidad |
+| 03 | [Estación terrena de satélites meteorológicos](projects/03-satellite-ground-station/) | 🟡 En progreso | Recepción y decodificación de imágenes de satélites NOAA/Meteor-M2 con antena QFH impresa en 3D y rotor de seguimiento Az/El motorizado | Enlaces satelitales, doppler tracking, procesamiento de señal, cinemática de motores |
+| 04 | [Red LoRa/Meshtastic para alta montaña](projects/04-alpine-mesh-tracking/) | 🔵 Planeado | Mensajería y track GPS off-grid para senderismo, con nodo gateway direccional para bridging ocasional hacia internet | LPWAN, hacking de hardware, propagación RF en terreno real |
 
-**Leyenda:** 🔵 Planeado · 🟡 En progreso · 🟢 Completado
+**Leyenda de estado:** 🔵 Planeado · 🟡 En progreso · 🟢 Completado
+
+*(Esta tabla se actualiza a medida que avanza cada proyecto — ver [roadmap completo](docs/roadmap.md))*
+
+---
 
 ## 🔗 Proyecto relacionado (repositorio aparte)
 
-- **[wifi-csi-presence-sensing](https://github.com/AlvGJ-UGR/wifi-csi-presence-sensing)** — sensado de presencia por WiFi CSI en ESP32 (línea de trabajo distinta, repositorio propio).
+- **[wifi-csi-presence-sensing](https://github.com/AlvGJ-UGR/wifi-csi-presence-sensing)** — Sensado de presencia mediante WiFi Channel State Information (CSI) sobre ESP32, sin cámaras ni sensores dedicados. Repositorio independiente por tratarse de una línea de trabajo distinta (procesamiento de señal / sensado RF, no comunicaciones); ver su propio README para la diferenciación frente a proyectos similares ya existentes en la comunidad.
 
-## 🎯 Habilidades demostradas
+---
 
-Diseño de antenas RF (simulación NEC2, fabricación, medición con VNA) · SDR y procesamiento de señal · sistemas embebidos (ESP32, control de motores, homing) · mecánica orbital y seguimiento satelital · documentación técnica honesta, incluyendo discrepancias simulación-vs-medición cuando aparecen.
+## 🗺️ Roadmap
+
+- [ ] **Fase 1** — Fundamentos SDR (espectro + ADS-B) — código completo, pendiente hardware
+- [ ] **Fase 2** — Diseño y medición de antenas con NanoVNA — sin empezar
+- [ ] **Fase 3** — Estación terrena de satélites meteorológicos — antena QFH y rotor Az/El diseñados, pendiente fabricación
+- [ ] **Fase 4** — Red LoRa/Meshtastic de comunicación y GPS para alta montaña — diseño y BOM cerrados, pendiente verificación de hardware
+
+Detalle completo, presupuesto y justificación técnica de cada fase en [`docs/roadmap.md`](docs/roadmap.md).
+
+---
+
+## 🎯 Habilidades técnicas demostradas
+
+- **RF y antenas**: diseño, simulación (NEC2), fabricación e impedancia/adaptación medida con VNA
+- **SDR y procesamiento de señal**: demodulación, decodificación de protocolos, GNU Radio
+- **Sistemas embebidos**: programación de microcontroladores (ESP32), comunicación LoRa
+- **Redes y protocolos**: MQTT, arquitecturas IoT de extremo a extremo
+- **Metodología de ingeniería**: documentación técnica, análisis de resultados, comparación simulación vs. medición real
+
+---
 
 ## 📫 Contacto
 
+- LinkedIn: 
 - Email: alvarogj1@correo.ugr.es
-- LinkedIn / CV: *(añadir enlaces)*
+- CV: 
+
+---
 
 ## Licencia
 
-MIT — ver [LICENSE](LICENSE).
+Este repositorio está bajo licencia MIT — ver [LICENSE](LICENSE) para más detalles.
