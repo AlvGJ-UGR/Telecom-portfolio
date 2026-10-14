@@ -177,16 +177,17 @@
   <div class="wrap">
     <div class="section-head reveal">
       <div class="eyebrow">Equipment</div>
-      <h2>What's actually on the bench</h2>
-      <p>Personal equipment, built up incrementally rather than bought as a kit — a constraint that shapes some of the design decisions below (e.g. cheap steppers over server-grade motors).</p>
+      <h2>What's on the bench — and what isn't yet</h2>
+      <p>Personal, self-funded equipment built up incrementally. Each row says whether it is in hand or still to be acquired: nothing here is claimed as owned unless it is.</p>
     </div>
     <div class="rack reveal">
-      <div class="rack-row"><span class="cat">RF / Measurement</span><span class="item">RTL-SDR Blog v3 <span>· wideband receive</span></span><span class="note">SDR dongle</span></div>
-      <div class="rack-row"><span class="cat">RF / Measurement</span><span class="item">NanoVNA <span>· S11 / VSWR / bandwidth</span></span><span class="note">vector network analyzer</span></div>
-      <div class="rack-row"><span class="cat">Fabrication</span><span class="item">FDM 3D printer <span>· PLA / PETG</span></span><span class="note">antenna &amp; rotor parts</span></div>
-      <div class="rack-row"><span class="cat">Embedded</span><span class="item">ESP32, Arduino <span>· 28BYJ-48 + ULN2003 steppers</span></span><span class="note">rotor control</span></div>
-      <div class="rack-row"><span class="cat">Software</span><span class="item">NEC2 (PyNEC), GNU Radio, KiCad</span><span class="note">simulation &amp; DSP</span></div>
-      <div class="rack-row"><span class="cat">Software</span><span class="item">Gpredict + Hamlib rotctld, Skyfield</span><span class="note">orbital tracking</span></div>
+      <div class="rack-row"><span class="cat">RF / Measurement</span><span class="item">RTL-SDR (R820T2) <span>· wideband receive</span></span><span class="note">to acquire · Project 01 runs on --demo meanwhile</span></div>
+      <div class="rack-row"><span class="cat">RF / Measurement</span><span class="item">NanoVNA <span>· S11 / VSWR / bandwidth</span></span><span class="note">to acquire · first purchase priority</span></div>
+      <div class="rack-row"><span class="cat">Fabrication</span><span class="item">FDM 3D printer <span>· PETG</span></span><span class="note">to acquire · all parts validated as meshes first</span></div>
+      <div class="rack-row"><span class="cat">Embedded</span><span class="item">ESP32-WROOM, soldering iron</span><span class="note">in hand</span></div>
+      <div class="rack-row"><span class="cat">Embedded</span><span class="item">28BYJ-48 + ULN2003 steppers, limit switches</span><span class="note">specified · rotor firmware not yet compiled</span></div>
+      <div class="rack-row"><span class="cat">Software</span><span class="item">NEC2 (PyNEC), OpenSCAD, trimesh, Skyfield</span><span class="note">in use · simulation &amp; CAD checks</span></div>
+      <div class="rack-row"><span class="cat">Software</span><span class="item">Gpredict + Hamlib rotctld</span><span class="note">planned integration · protocol bridge tested without hardware</span></div>
     </div>
   </div>
 </section>
@@ -339,8 +340,8 @@
             <dl>
               <dt>Freq</dt><dd>2.44 GHz</dd>
               <dt>VSWR</dt><dd>1.46</dd>
-              <dt>Gain</dt><dd>8.2 dBi</dd>
-              <dt>F/B</dt><dd>3.96 dB</dd>
+              <dt>Gain</dt><dd>8.1 dBi</dd>
+              <dt>F/B</dt><dd>4.0 dB</dd>
             </dl>
             <div class="vna-flag">⚠ F/B lower than forum folklore suggests — mesh-convergence checked, not a sim artifact</div>
           </div>
@@ -354,7 +355,7 @@
               <dt>Zin</dt><dd>173−155j Ω</dd>
               <dt>Gain</dt><dd>12.5 dBi</dd>
             </dl>
-            <div class="vna-flag">⚠ Match unresolved — gap sweep tried and failed, see bench notes</div>
+            <div class="vna-flag">⚠ Match unresolved — gap sweep and tapered turn tried; Zin not mesh-converged, see bench notes</div>
           </div>
         </div>
       </div>
@@ -382,9 +383,9 @@
             <div class="cs-block"><h5>Simulations</h5><p>Yagi spacing sweep, biquad reflector distance sweep + mesh-convergence check, helix C/λ sweep + gap-matching attempt — all with raw JSON results in <span class="mono">sim/</span>.</p></div>
             <div class="cs-block pending"><h5>Fabrication process</h5><p>Not started — awaiting a 3D printer and copper wire stock. Supports are pre-validated and ready to print.</p></div>
             <div class="cs-block pending"><h5>Measurements</h5><p>Not started — awaiting a NanoVNA. This is the single biggest gap between this case study and a finished one.</p></div>
-            <div class="cs-block"><h5>Results (simulated)</h5><p>Yagi 8.3 dBi / VSWR 1.77 · Biquad 8.2 dBi / VSWR 1.46 / F/B 4.0 dB · Helix 12.5 dBi on-axis, impedance match unresolved.</p></div>
+            <div class="cs-block"><h5>Results (simulated)</h5><p>Yagi 8.3 dBi / VSWR 1.77 · Biquad 8.1 dBi / VSWR 1.46 / F/B 4.0 dB · Helix 12.5 dBi on-axis, impedance match unresolved.</p></div>
             <div class="cs-block"><h5>Limitations</h5><p>Biquad F/B lower than community folklore (mesh-convergence checked, not explained). Helix reactance doesn't match Kraus's simplified feed model. Both flagged, not hidden.</p></div>
-            <div class="cs-block"><h5>Future improvements</h5><p>Kraus flat-strip or quarter-wave matching section for the helix (needs patch/plate NEC2 modelling); independent reflector/director length optimization for the Yagi.</p></div>
+            <div class="cs-block"><h5>Future improvements</h5><p>Helix matching via NanoVNA trimming (a tapered first turn did not give a mesh-converged Zin in NEC2); independent reflector/director length optimization for the Yagi.</p></div>
           </div>
           <div class="cs-gallery">
             <img src="assets/img/proj02-yagi-vswr.png" alt="Yagi VSWR curve" loading="lazy">
@@ -453,7 +454,7 @@
             <div class="cs-block"><h5>Objective</h5><p>Full RF→data pipeline for 1090 MHz Mode S/ADS-B: custom antenna, live spectrum, decoded aircraft, geolocated and plotted.</p></div>
             <div class="cs-block"><h5>Engineering problem</h5><p>Validate a complete software chain before the hardware exists, so the antenna is the only unverified link once it's built — not the whole pipeline at once.</p></div>
             <div class="cs-block"><h5>Architecture</h5><p>Ground-plane antenna → RTL-SDR → dump1090 → adsb_logger.py (Haversine geolocation) → coverage_plot.py — see the animated pipeline above.</p></div>
-            <div class="cs-block"><h5>Hardware</h5><p>RTL-SDR Blog v3, 1-1.5mm copper wire ground-plane antenna, SMA panel-mount connector.</p></div>
+            <div class="cs-block"><h5>Hardware</h5><p>RTL-SDR (not yet acquired; the pipeline runs on synthetic demo data until then), 1-1.5mm copper wire ground-plane antenna, SMA panel-mount connector.</p></div>
             <div class="cs-block"><h5>Software</h5><p>Python, NumPy/SciPy (Welch PSD), Pandas, Matplotlib, dump1090-fa.</p></div>
             <div class="cs-block"><h5>Methodology</h5><p>Every script ships a <span class="mono">--demo</span> mode generating synthetic IQ/ADS-B data, so the full pipeline is testable before hardware arrives.</p></div>
             <div class="cs-block pending"><h5>Fabrication process</h5><p>Antenna designed, not yet printed/soldered.</p></div>
@@ -522,7 +523,7 @@
             <div class="cs-block pending"><h5>Hardware</h5><p>Generic ESP32 + SX1276/78, band/connector of existing antennas unverified (see assumptions table in the repo) — flagged, not assumed.</p></div>
             <div class="cs-block"><h5>Software</h5><p>Meshtastic (unmodified firmware), MQTT bridge, companion app — no custom mesh protocol.</p></div>
             <div class="cs-block"><h5>Methodology</h5><p>Use Meshtastic as-is rather than reimplementing mesh routing; the differential engineering value is in hardware integration and real-terrain characterization, not protocol design.</p></div>
-            <div class="cs-block pending"><h5>Simulations</h5><p>None planned — propagation in mountain terrain is deliberately being measured, not modelled, since terrain models would just defer the real question.</p></div>
+            <div class="cs-block pending"><h5>Simulations</h5><p>Only a theoretical link budget (src/link_budget.py: sensitivity, free space, Fresnel, radio horizon, airtime). Mountain-terrain propagation is deliberately going to be measured, not modelled, since terrain models would just defer the real question.</p></div>
             <div class="cs-block pending"><h5>Fabrication / measurements / results</h5><p>Not started. This project is earliest-stage of the four — design and BOM only.</p></div>
             <div class="cs-block"><h5>Limitations</h5><p>Explicitly does not promise full-mountain coverage. Antenna band and GPS-mouse hackability are open assumptions pending physical inspection.</p></div>
             <div class="cs-block"><h5>Future improvements</h5><p>Verify existing antenna bands, confirm connector types, field-test real node-to-node range before committing to the full BOM.</p></div>
@@ -554,6 +555,7 @@
       <div class="film-card tilt-3d corner-sq-host"><img class="reveal-img" src="assets/img/proj02-biquad-tradeoff.png" alt="Biquad reflector distance sweep: gain, F/B and VSWR vs distance" loading="lazy"><div class="cap"><b>Reflector sweep</b><span>NEC2</span></div></div>
       <div class="film-card tilt-3d corner-sq-host"><img class="reveal-img" src="assets/img/proj02-helix-cad.png" alt="Helix guide-rod support, validated mesh" loading="lazy"><div class="cap"><b>Helix guides</b><span>CAD</span></div></div>
       <div class="film-card tilt-3d corner-sq-host"><img class="reveal-img" src="assets/img/proj03-elevation-cad.png" alt="Elevation shaft-to-mast coupler CAD" loading="lazy"><div class="cap"><b>Shaft coupler</b><span>CAD</span></div></div>
+      <div class="film-card tilt-3d corner-sq-host"><img class="reveal-img" src="assets/img/proj04-link-budget.png" alt="LoRa 868 MHz link budget: received power vs distance against SF sensitivities, with radio horizon" loading="lazy"><div class="cap"><b>Link budget</b><span>Model</span></div></div>
     </div>
   </div>
 </section>
@@ -563,7 +565,7 @@
     <div class="section-head reveal">
       <div class="eyebrow">Bench notes</div>
       <h2>Findings reported as they happened</h2>
-      <p>A portfolio only proves something if the failures are in it too. Three examples from this repository's own commit history.</p>
+      <p>A portfolio only proves something if the failures are in it too. Four examples from this repository's own history.</p>
     </div>
     <div class="bench-grid">
       <div class="bench-card reveal corner-sq-host">
@@ -580,6 +582,11 @@
         <span class="src">Project 03 — rotor mechanics</span>
         <p>Two 3D-printable parts looked correct in the CAD viewer and still failed.</p>
         <p>Rendering every part to an actual mesh and checking real face connectivity — not just "no compile errors" — caught a fork that would've printed as two disconnected halves, and a shaft coupler that was hollow on both sides of its own joint.</p>
+      </div>
+      <div class="bench-card reveal corner-sq-host">
+        <span class="src">Project 02 — helix matching</span>
+        <p>A tapered first turn "matched" the helix to 50 Ω — until the mesh was refined.</p>
+        <p>Input resistance drifted from 74 Ω to 19 Ω as segments per turn went from 16 to 48, so the VSWR 1.28 is a discretisation artifact and is not claimed. Peak gain did converge (±0.2 dB). The match is left for the NanoVNA.</p>
       </div>
     </div>
   </div>
